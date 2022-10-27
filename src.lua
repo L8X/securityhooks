@@ -766,15 +766,15 @@ OldNameCall =
 
         if not checkcaller() then
 	
-        if gethui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and IsTextBoxInGetHiddenUi() then
+        if gethui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethui() then
             return nil
         end
 
-        if gethiddengui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and IsTextBoxInGetHiddenGui() then then
+       if gethiddengui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
             return nil
-        end
-        
-	end
+       end
+
+       end
 
 	if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
         return OldNameCall(Self, ...)
