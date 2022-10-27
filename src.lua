@@ -766,7 +766,7 @@ OldNameCall =
 
         if not checkcaller() then
 	
-        if gethui and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and UserInputService:GetFocusedTextBox() ~= nil and UserInputService:GetFocusedTextBox():IsDescendantOf(gethui())
+        if gethui and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and UserInputService:GetFocusedTextBox() ~= nil and UserInputService:GetFocusedTextBox():IsDescendantOf(gethui()) then
             return nil
         end
 
