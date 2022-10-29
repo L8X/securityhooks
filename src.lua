@@ -13,6 +13,7 @@ local getfenv = getfenv
 local setfenv = setfenv
 local _G = _G
 local shared = shared
+local type = type
 local gethui = gethui or gethiddenui or hiddenui
 local gethiddengui = gethiddengui
 
@@ -336,7 +337,7 @@ if hookfunction ~= nil then
 end
 end))]]--
 
-if gethui ~= nil or gethiddengui ~= nil then
+if gethui ~= nil or gethiddengui ~= nil and hookfunction then
 local OldGetFocusedTextBox = nil
 OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()
     local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
@@ -359,6 +360,20 @@ OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function
         return UserInputService:GetFocusedTextBox()
     end
 end)
+end
+
+if hookfunction and gethui and gethui() then
+    hookfunction(gethui().destroy, function() end)
+    hookfunction(gethui().Destroy, function() end)
+    hookfunction(gethui().remove, function() end)
+    hookfunction(gethui().Remove, function() end)
+end
+
+if hookfunction and gethiddengui and gethiddengui() then
+    hookfunction(gethiddengui().destroy, function() end)
+    hookfunction(gethiddengui().Destroy, function() end)
+    hookfunction(gethiddengui().remove, function() end)
+    hookfunction(gethiddengui().Remove, function() end)
 end
 
 local OldNameCall = nil
@@ -761,7 +776,37 @@ OldNameCall =
         if CoreScriptSyncService ~= nil and Self == CoreScriptSyncService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
             return
         end
-
+	
+	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "destroy" then
+	    return
+        end
+			
+	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Destroy" then
+	    return
+        end
+			
+	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "remove" then
+	    return
+        end
+			
+	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Remove" then
+	    return
+        end
+			
+	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "destroy" then
+	    return
+        end
+			
+	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Destroy" then
+	    return
+        end
+			
+	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "remove" then
+	    return
+        end
+			
+	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Remove" then
+	    return
         end
 
         if not checkcaller() then
@@ -770,11 +815,11 @@ OldNameCall =
             return nil
         end
 
-       if gethiddengui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
+        if gethiddengui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
             return nil
-       end
+        end
 
-       end
+        end
 
 	if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
         return OldNameCall(Self, ...)
