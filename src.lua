@@ -261,13 +261,16 @@ local function IsTextBoxInGetHiddenGui()
     end
 end
 
---[[task.spawn(coroutine.create(function()
+task.spawn(coroutine.create(function()
 -- wait until game is loaded to ensure error 268 doesn't occur
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
+    if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
+        hookfunction(game.Shutdown, function() end)
+    end
     if game ~= nil and pcall(function() tostring(game.ReportInGoogleAnalytics) end) then
         hookfunction(game.ReportInGoogleAnalytics, function() end)
     end
@@ -389,6 +392,10 @@ OldNameCall =
         
         local NameCallMethod = getnamecallmethod()
 
+	if game ~= nil and Self == game and tostring(NameCallMethod) == "Shutdown" then
+            return
+        end		
+	
         if game ~= nil and Self == game and tostring(NameCallMethod) == "ReportInGoogleAnalytics" then
             return
         end
