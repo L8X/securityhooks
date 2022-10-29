@@ -338,7 +338,7 @@ if hookfunction ~= nil then
         hookfunction(LogService.GetHttpResultHistory, function() end)
     end
 end
-end))]]--
+end))
 
 if gethui ~= nil or gethiddengui ~= nil and hookfunction then
 local OldGetFocusedTextBox = nil
