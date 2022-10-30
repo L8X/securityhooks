@@ -13,7 +13,6 @@ local getfenv = getfenv
 local setfenv = setfenv
 local _G = _G
 local shared = shared
-local type = type
 local gethui = gethui or gethiddenui or hiddenui
 local gethiddengui = gethiddengui
 
@@ -261,6 +260,24 @@ local function IsTextBoxInGetHiddenGui()
     end
 end
 
+pcall(function()
+	if gethui and gethui() and hookfunction then
+		hookfunction(gethui().destroy, function() end)
+		hookfunction(gethui().Destroy, function() end)
+		hookfunction(gethui().remove, function() end)
+		hookfunction(gethui().Remove, function() end)	
+	end
+end)
+
+pcall(function()
+	if gethiddengui and gethiddengui() and hookfunction then
+		hookfunction(gethiddengui().destroy, function() end)
+		hookfunction(gethiddengui().Destroy, function() end)
+		hookfunction(gethiddengui().remove, function() end)
+		hookfunction(gethiddengui().Remove, function() end)	
+	end
+end)
+
 task.spawn(coroutine.create(function()
 -- wait until game is loaded to ensure error 268 doesn't occur
 if not game:IsLoaded() then
@@ -340,7 +357,7 @@ if hookfunction ~= nil then
 end
 end))
 
-if gethui ~= nil or gethiddengui ~= nil and hookfunction then
+if gethui ~= nil or gethiddengui ~= nil then
 local OldGetFocusedTextBox = nil
 OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()
     local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
@@ -365,20 +382,6 @@ OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function
 end)
 end
 
-if hookfunction and gethui and gethui() then
-    hookfunction(gethui().destroy, function() end)
-    hookfunction(gethui().Destroy, function() end)
-    hookfunction(gethui().remove, function() end)
-    hookfunction(gethui().Remove, function() end)
-end
-
-if hookfunction and gethiddengui and gethiddengui() then
-    hookfunction(gethiddengui().destroy, function() end)
-    hookfunction(gethiddengui().Destroy, function() end)
-    hookfunction(gethiddengui().remove, function() end)
-    hookfunction(gethiddengui().Remove, function() end)
-end
-
 local OldNameCall = nil
 
 OldNameCall =
@@ -391,11 +394,11 @@ OldNameCall =
         if checkcaller() then
         
         local NameCallMethod = getnamecallmethod()
-
-	if game ~= nil and Self == game and tostring(NameCallMethod) == "Shutdown" then
+        
+        if game ~= nil and Self == game and tostring(NameCallMethod) == "Shutdown" then
             return
-        end		
-	
+        end
+      
         if game ~= nil and Self == game and tostring(NameCallMethod) == "ReportInGoogleAnalytics" then
             return
         end
@@ -783,37 +786,39 @@ OldNameCall =
         if CoreScriptSyncService ~= nil and Self == CoreScriptSyncService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
             return
         end
+        
+        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "destroy" then
+            return
+	end
+		
+	if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Destroy" then
+            return
+	end
+		
+        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "remove" then
+            return
+	end
+		
+        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Remove" then
+            return
+	end
+		
+	if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "destroy" then
+            return
+	end
+		
+	if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Destroy" then
+            return
+	end
+		
+        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "remove" then
+            return
+	end
+		
+        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Remove" then
+            return
+	end
 	
-	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "destroy" then
-	    return
-        end
-			
-	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Destroy" then
-	    return
-        end
-			
-	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "remove" then
-	    return
-        end
-			
-	if gethui ~= nil and type(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Remove" then
-	    return
-        end
-			
-	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "destroy" then
-	    return
-        end
-			
-	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Destroy" then
-	    return
-        end
-			
-	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "remove" then
-	    return
-        end
-			
-	if gethiddengui ~= nil and type(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Remove" then
-	    return
         end
 
         if not checkcaller() then
@@ -827,8 +832,8 @@ OldNameCall =
         end
 
         end
-
-	if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
+          
+	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
         return OldNameCall(Self, ...)
     end
 )
