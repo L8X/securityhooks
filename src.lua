@@ -643,7 +643,7 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
         if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenScreenshotsFolder" then
             return
         end
-=
+
         if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenVideosFolder" then
             return
         end
