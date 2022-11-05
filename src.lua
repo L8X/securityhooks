@@ -187,53 +187,53 @@ local function FindService(s)
     end
 end
 
-local MessageBusService = FindService("MessageBusService")
-local FacialAnimationStreamingService = FindService("FacialAnimationStreamingService")
-local VoiceChatInternal = FindService("VoiceChatInternal")
-local VoiceChatService = FindService("VoiceChatService")
-local CoreGui = FindService("CoreGui")
-local MarketplaceService = FindService("MarketplaceService")
-local RbxAnalyticsService = FindService("RbxAnalyticsService")
-local HttpRbxApiService = FindService("HttpRbxApiService")
-local AppUpdateService = FindService("AppUpdateService")
-local BrowserService = FindService("BrowserService")
-local DataModelPatchService = FindService("DataModelPatchService")
-local EventIngestService = FindService("EventIngestService")
-local FaceAnimatorService = FindService("FaceAnimatorService")
-local DeviceIdService = FindService("DeviceIdService")
-local HttpService = FindService("HttpService")
-local LocalStorageService = FindService("LocalStorageService")
-local AppStorageService = FindService("AppStorageService")
-local UserStorageService = FindService("UserStorageService")
-local LoginService = FindService("LoginService")
-local MemStorageService = FindService("MemStorageService")
-local MemoryStoreService = FindService("MemoryStoreService")
-local PermissionsService = FindService("PermissionsService")
-local PlayerEmulatorService = FindService("PlayerEmulatorService")
-local RtMessagingService = FindService("RtMessagingService")
-local ScriptContext = FindService("ScriptContext")
-local SocialService = FindService("SocialService")
-local SoundService = FindService("SoundService")
-local ThirdPartyUserService = FindService("ThirdPartyUserService")
-local TracerService = FindService("TracerService")
-local VideoCaptureService = FindService("VideoCaptureService")
-local Players = FindService("Players")
-local AnimationFromVideoCreatorService = FindService("AnimationFromVideoCreatorService")
-local Stats = stats and stats() or Stats and Stats() or FindService("Stats")
-local SessionService = FindService("SessionService")
-local UserInputService = FindService("UserInputService")
+local MessageBusService = GetService("MessageBusService")
+local FacialAnimationStreamingService = GetService("FacialAnimationStreamingService")
+local VoiceChatInternal = GetService("VoiceChatInternal")
+local VoiceChatService = GetService("VoiceChatService")
+local CoreGui = GetService("CoreGui")
+local MarketplaceService = GetService("MarketplaceService")
+local RbxAnalyticsService = GetService("RbxAnalyticsService")
+local HttpRbxApiService = GetService("HttpRbxApiService")
+local AppUpdateService = GetService("AppUpdateService")
+local BrowserService = GetService("BrowserService")
+local DataModelPatchService = GetService("DataModelPatchService")
+local EventIngestService = GetService("EventIngestService")
+local FaceAnimatorService = GetService("FaceAnimatorService")
+local DeviceIdService = GetService("DeviceIdService")
+local HttpService = GetService("HttpService")
+local LocalStorageService = GetService("LocalStorageService")
+local AppStorageService = GetService("AppStorageService")
+local UserStorageService = GetService("UserStorageService")
+local LoginService = GetService("LoginService")
+local MemStorageService = GetService("MemStorageService")
+local MemoryStoreService = GetService("MemoryStoreService")
+local PermissionsService = GetService("PermissionsService")
+local PlayerEmulatorService = GetService("PlayerEmulatorService")
+local RtMessagingService = GetService("RtMessagingService")
+local ScriptContext = GetService("ScriptContext")
+local SocialService = GetService("SocialService")
+local SoundService = GetService("SoundService")
+local ThirdPartyUserService = GetService("ThirdPartyUserService")
+local TracerService = GetService("TracerService")
+local VideoCaptureService = GetService("VideoCaptureService")
+local Players = GetService("Players")
+local AnimationFromVideoCreatorService = GetService("AnimationFromVideoCreatorService")
+local Stats = stats and stats() or Stats and Stats() or GetService("Stats")
+local SessionService = GetService("SessionService")
+local UserInputService = GetService("UserInputService")
 local VirtualInputManager = FindService("VirtualInputManager")
 local VirtualUser = FindService("VirtualUser")
-local LogService = FindService("LogService")
-local GuiService = FindService("GuiService")
-local ContentProvider = FindService("ContentProvider")
-local MeshContentProvider = FindService("MeshContentProvider")
-local LocalizationService = FindService("LocalizationService")
-local RunService = FindService("RunService")
-local AnalyticsService = FindService("AnalyticsService")
-local HapticService = FindService("HapticService")
-local FriendService = FindService("FriendService")
-local CoreScriptSyncService = FindService("CoreScriptSyncService")
+local LogService = GetService("LogService")
+local GuiService = GetService("GuiService")
+local ContentProvider = GetService("ContentProvider")
+local MeshContentProvider = GetService("MeshContentProvider")
+local LocalizationService = GetService("LocalizationService")
+local RunService = GetService("RunService")
+local AnalyticsService = GetService("AnalyticsService")
+local HapticService = GetService("HapticService")
+local FriendService = GetService("FriendService")
+local CoreScriptSyncService = GetService("CoreScriptSyncService")
 local LocalPlayer = Players.LocalPlayer
 
 local function IsTextBoxInGetHiddenUi()
@@ -261,102 +261,339 @@ local function IsTextBoxInGetHiddenGui()
 end
 
 pcall(function()
-	if gethui and gethui() and hookfunction then
-		hookfunction(gethui().destroy, function() end)
-		hookfunction(gethui().Destroy, function() end)
-		hookfunction(gethui().remove, function() end)
-		hookfunction(gethui().Remove, function() end)	
-	end
+if gethui and gethui() and hookfunction then
+hookfunction(gethui().destroy, function() end)
+hookfunction(gethui().Destroy, function() end)
+hookfunction(gethui().remove, function() end)
+hookfunction(gethui().Remove, function() end)	
+end
 end)
 
 pcall(function()
-	if gethiddengui and gethiddengui() and hookfunction then
-		hookfunction(gethiddengui().destroy, function() end)
-		hookfunction(gethiddengui().Destroy, function() end)
-		hookfunction(gethiddengui().remove, function() end)
-		hookfunction(gethiddengui().Remove, function() end)	
-	end
+if gethiddengui and gethiddengui() and hookfunction then
+hookfunction(gethiddengui().destroy, function() end)
+hookfunction(gethiddengui().Destroy, function() end)
+hookfunction(gethiddengui().remove, function() end)
+hookfunction(gethiddengui().Remove, function() end)	
+end
 end)
 
 task.spawn(coroutine.create(function()
 -- wait until game is loaded to ensure error 268 doesn't occur
-if not game:IsLoaded() then
+--[[if not game:IsLoaded() then
     game.Loaded:Wait()
-end
+end]]--
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
-        hookfunction(game.Shutdown, function() end)
+    	oldShutdown = hookfunction(game.Shutdown, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return oldShutdown 
+    		end
+		end)
     end
     if game ~= nil and pcall(function() tostring(game.ReportInGoogleAnalytics) end) then
-        hookfunction(game.ReportInGoogleAnalytics, function() 
-	
-	end)
+    	ReportInGoogleAnalytics = hookfunction(game.ReportInGoogleAnalytics, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return ReportInGoogleAnalytics 
+    		end
+		end)
     end
     if game ~= nil and pcall(function() tostring(game.OpenScreenshotsFolder) end) then
-        hookfunction(game.OpenScreenshotsFolder, function() 
-	
-	end)
+    	OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return OpenScreenshotsFolder 
+    		end
+		end)
     end
     if game ~= nil and pcall(function() tostring(game.OpenVideosFolder) end) then
-        hookfunction(game.OpenVideosFolder, function() end)
+    	OpenVideosFolder = hookfunction(game.OpenVideosFolder, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return OpenVideosFolder 
+    		end
+		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.SetUserGuiRendering) end) then
-        hookfunction(CoreGui.SetUserGuiRendering, function() end)
+    	SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return SetUserGuiRendering 
+    		end
+		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.TakeScreenshot) end) then
-        hookfunction(CoreGui.TakeScreenshot, function() end)
+    	TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return TakeScreenshot 
+    		end
+		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.ToggleRecording) end) then
-        hookfunction(CoreGui.SetUserGuiRendering, function() end)
+    	ToggleRecording = hookfunction(CoreGui.ToggleRecording, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return ToggleRecording 
+    		end
+		end)
     end
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuse) end) then
-        hookfunction(Players.ReportAbuse, function() end)
+    	ReportAbuse = hookfunction(Players.ReportAbuse, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return ReportAbuse 
+    		end
+		end)
     end
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuseV3) end) then
-        hookfunction(Players.ReportAbuseV3, function() end)
+    	ReportAbuseV3 = hookfunction(Players.ReportAbuseV3, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return ReportAbuseV3
+    		end
+		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.ToggleFullscreen) end) then
-        hookfunction(GuiService.ToggleFullscreen, function() end)
+    	ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return ToggleFullscreen
+    		end
+		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenBrowserWindow) end) then
-        hookfunction(GuiService.OpenBrowserWindow, function() end)
+    	OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return OpenBrowserWindow
+    		end
+		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenNativeOverlay) end) then
-        hookfunction(GuiService.OpenNativeOverlay, function() end)
+    	OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return OpenNativeOverlay
+    		end
+		end)
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.GetUserAgent) end) then
-        hookfunction(HttpService.GetUserAgent, function() end)
+    	GetUserAgent = hookfunction(HttpService.GetUserAgent, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetUserAgent
+    		end
+		end)
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.RequestInternal) end) then
-        hookfunction(HttpService.RequestInternal, function() end)
+    	RequestInternal = hookfunction(HttpService.RequestInternal, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return RequestInternal
+    		end
+		end)
     end
     if ScriptContext ~= nil and pcall(function() tostring(ScriptContext.AddCoreScriptLocal) end) then
-        hookfunction(ScriptContext.AddCoreScriptLocal, function() end)
+    	AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return AddCoreScriptLocal
+    		end
+		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
-        hookfunction(SoundService.GetOutputDevice, function() end)
+    	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetOutputDevice
+    		end
+		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevices) end) then
-        hookfunction(SoundService.GetOutputDevices, function() end)
+    	GetOutputDevices = hookfunction(SoundService.GetOutputDevices, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetOutputDevices
+    		end
+		end)
     end
-    if SoundService ~= nil and pcall(function() tostring(SoundService.SetOutputDevice) end) then
-        hookfunction(SoundService.SetOutputDevice, function() end)
+    if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
+    	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetOutputDevice
+    		end
+		end)
+    end
+    if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevice) end) then
+    	GetInputDevice = hookfunction(SoundService.GetInputDevice, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetInputDevice
+    		end
+		end)
+    end
+    if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevices) end) then
+    	GetInputDevices = hookfunction(SoundService.GetInputDevices, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetInputDevices
+    		end
+		end)
+    end
+    if SoundService ~= nil and pcall(function() tostring(SoundService.SetInputDevice) end) then
+    	SetInputDevice = hookfunction(SoundService.SetInputDevice, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return SetInputDevice
+    		end
+		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetRecordingDevices) end) then
-        hookfunction(SoundService.GetRecordingDevices, function() end)
+    	GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetRecordingDevices
+    		end
+		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetRecordingDevice) end) then
-        hookfunction(SoundService.SetRecordingDevice, function() end)
+    	SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return SetRecordingDevice
+    		end
+		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
-        hookfunction(SoundService.BeginRecording, function() end)
+    	BeginRecording = hookfunction(SoundService.BeginRecording, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return BeginRecording
+    		end
+		end)
     end
-    if SoundService ~= nil and pcall(function() tostring(SoundService.EndRecording) end) then
-        hookfunction(SoundService.EndRecording, function() end)
+    if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
+    	BeginRecording = hookfunction(SoundService.EndRecording, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return BeginRecording
+    		end
+		end)
     end
     if LogService ~= nil and pcall(function() tostring(LogService.GetHttpResultHistory) end) then
-        hookfunction(LogService.GetHttpResultHistory, function() end)
+    	GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetHttpResultHistory
+    		end
+		end)
+    end
+    if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetAudioProcessingSettings) end) then
+    	GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetAudioProcessingSettings
+    		end
+		end)
+    end
+    if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetMicDevices) end) then
+    	GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetMicDevices
+    		end
+		end)
+    end
+    if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetSpeakerDevices) end) then
+    	GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return GetSpeakerDevices
+    		end
+		end)
+    end
+    if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetSpeakerDevice) end) then
+    	SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return SetSpeakerDevice
+    		end
+		end)
+    end
+    if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetMicDevice) end) then
+    	SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, function() 
+    		if checkcaller() then
+    			return function()
+    		end 
+    			elseif not checkcaller() then
+    			return SetMicDevice
+    		end
+		end)
     end
 end
 end))
@@ -388,21 +625,17 @@ end
 
 local OldNameCall = nil
 
-OldNameCall =
-    hookmetamethod(
-    game,
-    "__namecall",
-    function(Self, ...)
+OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 	local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
         local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui
         if checkcaller() then
-        
+
         local NameCallMethod = getnamecallmethod()
-        
+
         if game ~= nil and Self == game and tostring(NameCallMethod) == "Shutdown" then
             return
         end
-      
+
         if game ~= nil and Self == game and tostring(NameCallMethod) == "ReportInGoogleAnalytics" then
             return
         end
@@ -410,7 +643,7 @@ OldNameCall =
         if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenScreenshotsFolder" then
             return
         end
-
+=
         if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenVideosFolder" then
             return
         end
@@ -463,11 +696,23 @@ OldNameCall =
             return
         end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetRecordingDevices" then
+        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetOutputDevice" then
+            return
+        end
+        
+        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetInputDevice" then
             return
         end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetOutputDevice" then
+        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetInputDevices" then
+            return
+        end
+
+        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetInputDevice" then
+            return
+        end
+
+        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetRecordingDevices" then
             return
         end
 
@@ -562,11 +807,11 @@ OldNameCall =
         if MarketplaceService ~= nil and Self == MarketplaceService and tostring(NameCallMethod):find("Purchase") then
             return
         end
-            
+
         if MarketplaceService ~= nil and Self == MarketplaceService and tostring(NameCallMethod):find("Prompt") then
             return
         end
-            
+
         if MessageBusService ~= nil and Self == MessageBusService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
             return
         end
@@ -578,124 +823,32 @@ OldNameCall =
         if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetAudioProcessingSettings" then
             return
         end
-        
+
         if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetMicDevices" then
             return
         end
-        
+
         if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetSpeakerDevices" then
             return
         end
-        
+
         if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "SetMicDevice" then
             return
         end
-        
+
         if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "SetSpeakerDevice" then
             return
         end
-        
+
         if AnimationFromVideoCreatorService ~= nil and Self == AnimationFromVideoCreatorService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
             return
         end
-        
-        if Stats ~= nil and Self == Stats and tostring(NameCallMethod) == "GetBrowserTrackerId" then
-            return
-        end
-        
-        if Stats ~= nil and Self == Stats and tostring(NameCallMethod) == "GetPaginatedMemoryByTexture" then
-            return
-        end
-        
+
         if SessionService ~= nil and Self == SessionService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
             return
         end
         
-        if UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetDeviceType" then
-            return
-        end
-        
-        if UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetPlatform" then
-            return
-        end
-        
-        if UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "SendAppUISizes" then
-            return
-        end
-        
-        if VirtualInputManager ~= nil and Self == VirtualInputManager and tostring(NameCallMethod) == "Dump" then
-            return
-        end
-        
-        if VirtualInputManager ~= nil and Self == VirtualInputManager and tostring(NameCallMethod) == "StartPlaying" then
-            return
-        end
-        
-        if VirtualInputManager ~= nil and Self == VirtualInputManager and tostring(NameCallMethod) == "StartPlayingJSON" then
-            return
-        end
-        
-        if VirtualInputManager ~= nil and Self == VirtualInputManager and tostring(NameCallMethod) == "StopPlaying" then
-            return
-        end
-        
-        if VirtualInputManager ~= nil and Self == VirtualInputManager and tostring(NameCallMethod) == "sendRobloxEvent" then
-            return
-        end
-        
-        if VirtualInputManager ~= nil and Self == VirtualInputManager and tostring(NameCallMethod) == "sendThemeChangeEvent" then
-            return
-        end
-
-        if VirtualUser ~= nil and Self == VirtualUser and tostring(NameCallMethod) == "CaptureController" then
-            return
-        end
-
         if LogService ~= nil and Self == LogService and tostring(NameCallMethod) == "GetHttpResultHistory" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "GetGameSessionID" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "SetExperienceSettingsLocaleId" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "SetUnder13" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "GetUnder13" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "SetModerationAccessKey" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "RevokeFriendship" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "RequestFriendship" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "UpdatePlayerBlocked" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "SetSuperSafeChat" then
-            return
-        end
-
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and tostring(NameCallMethod) == "AddToBlockList" then
-            return
-        end
-
-        if ContentProvider ~= nil and Self == ContentProvider and tostring(NameCallMethod) == "SetBaseUrl" then
             return
         end
 
@@ -704,34 +857,6 @@ OldNameCall =
         end
 
         if ContentProvider ~= nil and Self == ContentProvider and tostring(NameCallMethod) == "GetDetailedFailedRequests" then
-            return
-        end
-
-        if MeshContentProvider ~= nil and Self == MeshContentProvider and tostring(NameCallMethod) == "PromptDownloadGameTableToCSV" then
-            return
-        end
-
-        if LocalizationService ~= nil and Self == LocalizationService and tostring(NameCallMethod) == "PromptExportToCSVs" then
-            return
-        end
-
-        if LocalizationService ~= nil and Self == LocalizationService and tostring(NameCallMethod) == "PromptImportFromCSVs" then
-            return
-        end
-
-        if LocalizationService ~= nil and Self == LocalizationService and tostring(NameCallMethod) == "PromptUploadCSVToGameTable" then
-            return
-        end
-
-        if LocalizationService ~= nil and Self == LocalizationService and tostring(NameCallMethod) == "SetExperienceSettingsLocaleId" then
-            return
-        end
-
-        if LocalizationService ~= nil and Self == LocalizationService and tostring(NameCallMethod) == "SetRobloxLocaleId" then
-            return
-        end
-
-        if LocalizationService ~= nil and Self == LocalizationService and tostring(NameCallMethod) == "StartTextScraper" then
             return
         end
 
@@ -744,34 +869,6 @@ OldNameCall =
         end
 
         if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "ToggleFullscreen" then
-            return
-        end
-
-        if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "SetHardwareSafeAreaInsets" then
-            return
-        end
-
-        if RunService ~= nil and Self == RunService and tostring(NameCallMethod) == "Pause" then
-            return
-        end
-
-        if RunService ~= nil and Self == RunService and tostring(NameCallMethod) == "Reset" then
-            return
-        end
-
-        if RunService ~= nil and Self == RunService and tostring(NameCallMethod) == "Run" then
-            return
-        end
-
-        if RunService ~= nil and Self == RunService and tostring(NameCallMethod) == "Stop" then
-            return
-        end
-
-        if RunService ~= nil and Self == RunService and tostring(NameCallMethod) == "SetRobloxGuiFocused" then
-            return
-        end
-
-        if RunService ~= nil and Self == RunService and tostring(NameCallMethod) == "setThrottleFramerateEnabled" then
             return
         end
 
@@ -790,43 +887,43 @@ OldNameCall =
         if CoreScriptSyncService ~= nil and Self == CoreScriptSyncService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
             return
         end
-        
+
         if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "destroy" then
             return
-	end
-		
-	if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Destroy" then
+        end
+        
+        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Destroy" then
             return
-	end
-		
+        end
+
         if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "remove" then
             return
-	end
-		
+        end
+
         if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Remove" then
             return
-	end
-		
-	if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "destroy" then
+        end
+        
+        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "destroy" then
             return
-	end
-		
-	if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Destroy" then
+        end
+        
+        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Destroy" then
             return
-	end
-		
+        end
+
         if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "remove" then
             return
-	end
-		
+        end
+
         if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Remove" then
             return
-	end
-	
+        end
+
         end
 
         if not checkcaller() then
-	
+
         if gethui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethui() then
             return nil
         end
@@ -836,8 +933,7 @@ OldNameCall =
         end
 
         end
-          
-	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
-        return OldNameCall(Self, ...)
-    end
-)
+
+	if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
+	return OldNameCall(Self, ...)
+end)
