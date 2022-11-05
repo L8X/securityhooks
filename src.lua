@@ -261,21 +261,21 @@ local function IsTextBoxInGetHiddenGui()
 end
 
 pcall(function()
-if gethui and gethui() and hookfunction then
-hookfunction(gethui().destroy, function() end)
-hookfunction(gethui().Destroy, function() end)
-hookfunction(gethui().remove, function() end)
-hookfunction(gethui().Remove, function() end)	
-end
+	if gethui and gethui() and hookfunction then
+		hookfunction(gethui().destroy, function() end)
+		hookfunction(gethui().Destroy, function() end)
+		hookfunction(gethui().remove, function() end)
+		hookfunction(gethui().Remove, function() end)	
+	end
 end)
 
 pcall(function()
-if gethiddengui and gethiddengui() and hookfunction then
-hookfunction(gethiddengui().destroy, function() end)
-hookfunction(gethiddengui().Destroy, function() end)
-hookfunction(gethiddengui().remove, function() end)
-hookfunction(gethiddengui().Remove, function() end)	
-end
+	if gethiddengui and gethiddengui() and hookfunction then
+		hookfunction(gethiddengui().destroy, function() end)
+		hookfunction(gethiddengui().Destroy, function() end)
+		hookfunction(gethiddengui().remove, function() end)
+		hookfunction(gethiddengui().Remove, function() end)	
+	end
 end)
 
 task.spawn(coroutine.create(function()
@@ -599,340 +599,336 @@ end
 end))
 
 if gethui ~= nil or gethiddengui ~= nil then
-local OldGetFocusedTextBox = nil
-OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()
-    local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
-    local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui		
-    if not checkcaller() then
-        if gethui ~= nil and UserInputService ~= nil and Is_TB_In_gethui() then
-	    return nil
-        end
-        if gethiddengui ~= nil and UserInputService ~= nil and Is_TB_In_gethiddengui() then
-            return nil
-        end
-        if gethui ~= nil and UserInputService ~= nil and not Is_TB_In_gethui() then
-            return UserInputService:GetFocusedTextBox()
-        end
-        if gethiddengui ~= nil and UserInputService ~= nil and not Is_TB_In_gethiddengui() then
-            return UserInputService:GetFocusedTextBox()
-        end
-    end
-    if checkcaller() then
-        return UserInputService:GetFocusedTextBox()
-    end
-end)
+	local OldGetFocusedTextBox = nil
+	OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()
+		local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
+		local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui		
+		if not checkcaller() then
+			if gethui ~= nil and UserInputService ~= nil and Is_TB_In_gethui() then 
+				return nil
+			end
+			if gethiddengui ~= nil and UserInputService ~= nil and Is_TB_In_gethiddengui() then
+				return nil
+			end
+			if gethui ~= nil and UserInputService ~= nil and not Is_TB_In_gethui() then
+				return UserInputService:GetFocusedTextBox()
+			end
+			if gethiddengui ~= nil and UserInputService ~= nil and not Is_TB_In_gethiddengui() then
+				return UserInputService:GetFocusedTextBox()
+			end
+		end
+		if checkcaller() then
+			return UserInputService:GetFocusedTextBox()
+		end
+	end)
 end
 
 local OldNameCall = nil
 
 OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 	local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
-        local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui
-        if checkcaller() then
+    local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui
+	
+	if checkcaller() then
+	local NameCallMethod = getnamecallmethod()
 
-        local NameCallMethod = getnamecallmethod()
+	if game ~= nil and Self == game and tostring(NameCallMethod) == "Shutdown" then
+        return
+    end
 
-        if game ~= nil and Self == game and tostring(NameCallMethod) == "Shutdown" then
-            return
-        end
+    if game ~= nil and Self == game and tostring(NameCallMethod) == "ReportInGoogleAnalytics" then
+        return
+    end
 
-        if game ~= nil and Self == game and tostring(NameCallMethod) == "ReportInGoogleAnalytics" then
-            return
-        end
+    if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenScreenshotsFolder" then
+         return
+    end
 
-        if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenScreenshotsFolder" then
-            return
-        end
+    if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenVideosFolder" then
+        return
+    end
 
-        if game ~= nil and Self == game and tostring(NameCallMethod) == "OpenVideosFolder" then
-            return
-        end
+    if CoreGui ~= nil and Self == CoreGui and tostring(NameCallMethod) == "SetUserGuiRendering" then
+        return
+    end
 
-        if CoreGui ~= nil and Self == CoreGui and tostring(NameCallMethod) == "SetUserGuiRendering" then
-            return
-        end
+    if CoreGui ~= nil and Self == CoreGui and tostring(NameCallMethod) == "TakeScreenshot" then
+        return
+    end
 
-        if CoreGui ~= nil and Self == CoreGui and tostring(NameCallMethod) == "TakeScreenshot" then
-            return
-        end
+    if CoreGui ~= nil and Self == CoreGui and tostring(NameCallMethod) == "ToggleRecording" then
+        return
+    end
 
-        if CoreGui ~= nil and Self == CoreGui and tostring(NameCallMethod) == "ToggleRecording" then
-            return
-        end
+    if Players ~= nil and Self == Players and tostring(NameCallMethod) == "ReportAbuse" then
+        return
+    end
 
-        if Players ~= nil and Self == Players and tostring(NameCallMethod) == "ReportAbuse" then
-            return
-        end
+    if Players ~= nil and Self == Players and tostring(NameCallMethod) == "ReportAbuseV3" then
+        return
+    end
 
-        if Players ~= nil and Self == Players and tostring(NameCallMethod) == "ReportAbuseV3" then
-            return
-        end
+    if HttpService ~= nil and Self == HttpService and tostring(NameCallMethod) == "GetUserAgent" then
+        return
+    end
 
-        if HttpService ~= nil and Self == HttpService and tostring(NameCallMethod) == "GetUserAgent" then
-            return
-        end
+    if HttpService ~= nil and Self == HttpService and tostring(NameCallMethod) == "RequestInternal" then
+        return
+    end
 
-        if HttpService ~= nil and Self == HttpService and tostring(NameCallMethod) == "RequestInternal" then
-            return
-        end
+    if ScriptContext ~= nil and Self == ScriptContext and tostring(NameCallMethod) == "AddCoreScriptLocal" then
+        return
+    end
 
-        if ScriptContext ~= nil and Self == ScriptContext and tostring(NameCallMethod) == "AddCoreScriptLocal" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "BeginRecording" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "BeginRecording" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "EndRecording" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "EndRecording" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetOutputDevice" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetOutputDevice" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetOutputDevices" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetOutputDevices" then
-            return
-        end
-
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetOutputDevice" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetOutputDevice" then
+        return
+    end
         
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetInputDevice" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetInputDevice" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetInputDevices" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetInputDevices" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetInputDevice" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetInputDevice" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetRecordingDevices" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "GetRecordingDevices" then
+        return
+    end
 
-        if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetRecordingDevice" then
-            return
-        end
+    if SoundService ~= nil and Self == SoundService and tostring(NameCallMethod) == "SetRecordingDevice" then
+        return
+    end
 
-        if SocialService ~= nil and Self == SocialService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if SocialService ~= nil and Self == SocialService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if VideoCaptureService ~= nil and Self == VideoCaptureService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if VideoCaptureService ~= nil and Self == VideoCaptureService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if TracerService ~= nil and Self == TracerService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if TracerService ~= nil and Self == TracerService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if ThirdPartyUserService ~= nil and Self == ThirdPartyUserService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if ThirdPartyUserService ~= nil and Self == ThirdPartyUserService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if AppUpdateService ~= nil and Self == AppUpdateService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if AppUpdateService ~= nil and Self == AppUpdateService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if RtMessagingService ~= nil and Self == RtMessagingService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if RtMessagingService ~= nil and Self == RtMessagingService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if MemStorageService ~= nil and Self == MemStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if MemStorageService ~= nil and Self == MemStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if MemoryStoreService ~= nil and Self == MemoryStoreService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if MemoryStoreService ~= nil and Self == MemoryStoreService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if PermissionsService ~= nil and Self == PermissionsService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if PermissionsService ~= nil and Self == PermissionsService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if PlayerEmulatorService ~= nil and Self == PlayerEmulatorService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if PlayerEmulatorService ~= nil and Self == PlayerEmulatorService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if LoginService ~= nil and Self == LoginService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if LoginService ~= nil and Self == LoginService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if EventIngestService ~= nil and Self == EventIngestService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if EventIngestService ~= nil and Self == EventIngestService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if UserStorageService ~= nil and Self == UserStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if UserStorageService ~= nil and Self == UserStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if LocalStorageService ~= nil and Self == LocalStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if LocalStorageService ~= nil and Self == LocalStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if AppStorageService ~= nil and Self == AppStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if AppStorageService ~= nil and Self == AppStorageService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if DeviceIdService ~= nil and Self == DeviceIdService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if DeviceIdService ~= nil and Self == DeviceIdService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if DataModelPatchService ~= nil and Self == DataModelPatchService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if DataModelPatchService ~= nil and Self == DataModelPatchService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if FaceAnimatorService ~= nil and Self == FaceAnimatorService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if FaceAnimatorService ~= nil and Self == FaceAnimatorService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if BrowserService ~= nil and Self == BrowserService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if BrowserService ~= nil and Self == BrowserService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if RbxAnalyticsService ~= nil and Self == RbxAnalyticsService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if RbxAnalyticsService ~= nil and Self == RbxAnalyticsService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if HttpRbxApiService ~= nil and Self == HttpRbxApiService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if HttpRbxApiService ~= nil and Self == HttpRbxApiService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if MarketplaceService ~= nil and Self == MarketplaceService and tostring(NameCallMethod):find("Purchase") then
-            return
-        end
+    if MarketplaceService ~= nil and Self == MarketplaceService and tostring(NameCallMethod):find("Purchase") then
+        return
+    end
 
-        if MarketplaceService ~= nil and Self == MarketplaceService and tostring(NameCallMethod):find("Prompt") then
-            return
-        end
+    if MarketplaceService ~= nil and Self == MarketplaceService and tostring(NameCallMethod):find("Prompt") then
+        return
+    end
 
-        if MessageBusService ~= nil and Self == MessageBusService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if MessageBusService ~= nil and Self == MessageBusService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if FacialAnimationStreamingService ~= nil and Self == FacialAnimationStreamingService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if FacialAnimationStreamingService ~= nil and Self == FacialAnimationStreamingService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetAudioProcessingSettings" then
-            return
-        end
+    if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetAudioProcessingSettings" then
+        return
+    end
 
-        if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetMicDevices" then
-            return
-        end
+    if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetMicDevices" then
+        return
+    end
 
-        if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetSpeakerDevices" then
-            return
-        end
+    if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "GetSpeakerDevices" then
+        return
+    end
 
-        if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "SetMicDevice" then
-            return
-        end
+    if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "SetMicDevice" then
+        return
+    end
 
-        if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "SetSpeakerDevice" then
-            return
-        end
+    if VoiceChatInternal ~= nil and Self == VoiceChatInternal and tostring(NameCallMethod) == "SetSpeakerDevice" then
+        return
+    end
 
-        if AnimationFromVideoCreatorService ~= nil and Self == AnimationFromVideoCreatorService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if AnimationFromVideoCreatorService ~= nil and Self == AnimationFromVideoCreatorService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if SessionService ~= nil and Self == SessionService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if SessionService ~= nil and Self == SessionService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
         
-        if LogService ~= nil and Self == LogService and tostring(NameCallMethod) == "GetHttpResultHistory" then
-            return
-        end
+    if LogService ~= nil and Self == LogService and tostring(NameCallMethod) == "GetHttpResultHistory" then
+        return
+    end
 
-        if ContentProvider ~= nil and Self == ContentProvider and tostring(NameCallMethod) == "GetFailedRequests" then
-            return
-        end
+    if ContentProvider ~= nil and Self == ContentProvider and tostring(NameCallMethod) == "GetFailedRequests" then
+        return
+    end
 
-        if ContentProvider ~= nil and Self == ContentProvider and tostring(NameCallMethod) == "GetDetailedFailedRequests" then
-            return
-        end
+    if ContentProvider ~= nil and Self == ContentProvider and tostring(NameCallMethod) == "GetDetailedFailedRequests" then
+        return
+    end
 
-        if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "OpenBrowserWindow" then
-            return
-        end
+    if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "OpenBrowserWindow" then
+        return
+    end
 
-        if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "OpenNativeOverlay" then
-            return
-        end
+    if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "OpenNativeOverlay" then
+        return
+    end
 
-        if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "ToggleFullscreen" then
-            return
-        end
+    if GuiService ~= nil and Self == GuiService and tostring(NameCallMethod) == "ToggleFullscreen" then
+        return
+    end
 
-        if AnalyticsService ~= nil and Self == AnalyticsService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if AnalyticsService ~= nil and Self == AnalyticsService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if HapticService ~= nil and Self == HapticService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if HapticService ~= nil and Self == HapticService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if FriendService ~= nil and Self == FriendService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if FriendService ~= nil and Self == FriendService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if CoreScriptSyncService ~= nil and Self == CoreScriptSyncService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
-            return
-        end
+    if CoreScriptSyncService ~= nil and Self == CoreScriptSyncService and tostring(NameCallMethod) and not tostring(NameCallMethod) == "Connect" and not tostring(NameCallMethod) == "connect" then
+        return
+    end
 
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "destroy" then
-            return
-        end
+    if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "destroy" then
+        return
+    end
         
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Destroy" then
-            return
-        end
+    if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Destroy" then
+        return
+    end
 
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "remove" then
-            return
-        end
+    if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "remove" then
+        return
+    end
 
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Remove" then
-            return
-        end
+    if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and tostring(NameCallMethod) == "Remove" then
+        return
+    end
         
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "destroy" then
-            return
-        end
+    if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "destroy" then
+        return
+    end
         
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Destroy" then
-            return
-        end
+    if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Destroy" then
+        return
+    end
 
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "remove" then
-            return
-        end
+    if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "remove" then
+        return
+    end
 
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Remove" then
-            return
-        end
+    if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and tostring(NameCallMethod) == "Remove" then
+        return
+    end
+    end
 
-        end
-
-        if not checkcaller() then
-
-        if gethui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethui() then
-            return nil
-        end
-
-        if gethiddengui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
-            return nil
-        end
-
-        end
+    if not checkcaller() then
+    if gethui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethui() then
+		return nil
+    end
+    if gethiddengui ~= nil and UserInputService ~= nil and Self == UserInputService and tostring(NameCallMethod) == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
+        return nil
+    end
+    end
 
 	if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
 	return OldNameCall(Self, ...)
