@@ -237,10 +237,48 @@ local FriendService = GetService("FriendService")
 local CoreScriptSyncService = GetService("CoreScriptSyncService")
 local LocalPlayer = Players.LocalPlayer
 
+
+local BindableEvent = Instance.new("BindableEvent")
+local AllStepped = BindableEvent.Event
+
+RunService.Heartbeat:Connect(function()
+BindableEvent:Fire()
+end)
+
+RunService.Stepped:Connect(function()
+BindableEvent:Fire()
+end)
+
+RunService.RenderStepped:Connect(function()
+BindableEvent:Fire()
+end)
+
+RunService.PreSimulation:Connect(function()
+BindableEvent:Fire()
+end)
+
+RunService.PostSimulation:Connect(function()
+BindableEvent:Fire()
+end)
+
+RunService.PreAnimation:Connect(function()
+BindableEvent:Fire()
+end)
+
+RunService.PreRender:Connect(function()
+BindableEvent:Fire()
+end)
+
+task.spawn(function()
+while task.wait(0) do
+BindableEvent:Fire()
+end
+end)
+
 local TextBoxIsInHiddenInstance = false
 
 if gethui or gethiddengui then
-game:GetService("RunService"):BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
+AllStepped:Connect(function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
 else
