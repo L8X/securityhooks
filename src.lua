@@ -625,12 +625,9 @@ end
 local OldNameCall = nil
 
 OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
-	local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
-        local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui
 		
         if checkcaller() then
-			
-	local NameCallMethod = getnamecallmethod()
+        local NameCallMethod = getnamecallmethod()
 
         if game ~= nil and Self == game and NameCallMethod == "Shutdown" then
             return
@@ -893,11 +890,11 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
         if not checkcaller() then
         local NameCallMethod = getnamecallmethod()
 
-        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and Is_TB_In_gethui() then
+        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and IsTextBoxInGetHiddenUi() then
             return nil
         end
 
-        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
+        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and IsTextBoxInGetHiddenGui() then
             return nil
         end
 
