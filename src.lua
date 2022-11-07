@@ -276,49 +276,49 @@ end
 end)
 
 task.spawn(function()
-while task.wait(0) do
+while wait(0) do
 BindableEvent:Fire()
 end
 end)
 
 task.spawn(function()
-while RunService.Heartbeat:Wait(0) do
+while RunService.Heartbeat:Wait() do
 BindableEvent:Fire()
 end
 end)
 
 task.spawn(function()
-while RunService.Stepped:Wait(0) do
+while RunService.Stepped:Wait() do
 BindableEvent:Fire()
 end
 end)
 
 task.spawn(function()
-while RunService.RenderStepped:Wait(0) do
+while RunService.RenderStepped:Wait() do
 BindableEvent:Fire()
 end
 end)
 
 task.spawn(function()
-while RunService.PreSimulation:Wait(0) do
+while RunService.PreSimulation:Wait() do
 BindableEvent:Fire()
 end
 end)
 
 task.spawn(function()
-while RunService.PostSimulation:Wait(0) do
+while RunService.PostSimulation:Wait() do
 BindableEvent:Fire()
 end
 end)
 
 task.spawn(function()
-while RunService.PreAnimation:Wait(0) do
+while RunService.PreAnimation:Wait() do
 BindableEvent:Fire()
 end
 end)
 
 task.spawn(function()
-while RunService.PreRender:Wait(0) do
+while RunService.PreRender:Wait() do
 BindableEvent:Fire()
 end
 end)
