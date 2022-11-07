@@ -240,7 +240,7 @@ local function IsTextBoxInGetHiddenUi()
     if not gethui then
         return
     end
-    local TextBox = UserInputService:GetFocusedTextBox()
+    local TextBox = UserInputService.GetFocusedTextBox(UserInputService)
     if TextBox ~= nil and TextBox:IsDescendantOf(gethui()) then 
         return true
     else 
@@ -252,7 +252,7 @@ local function IsTextBoxInGetHiddenGui()
     if not gethiddengui then
         return
     end
-    local TextBox = UserInputService:GetFocusedTextBox()
+    local TextBox = UserInputService.GetFocusedTextBox(UserInputService)
     if TextBox ~= nil and TextBox:IsDescendantOf(gethiddengui()) then  
         return true
     else 
