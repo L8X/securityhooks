@@ -237,31 +237,32 @@ local FriendService = GetService("FriendService")
 local CoreScriptSyncService = GetService("CoreScriptSyncService")
 local LocalPlayer = Players.LocalPlayer
 
-local function IsTextBoxInGetHiddenUi()
-    if not gethui then
-        return
-    end
-    local UIS = cloneref(game:GetService("UserInputService"))
-    local TextBox = UIS.GetFocusedTextBox(UIS)
-    if TextBox ~= nil and TextBox:IsDescendantOf(gethui()) then 
-        return true
-    else 
-        return false
-    end
-end
+local TextBoxIsInHiddenInstance = false
 
-local function IsTextBoxInGetHiddenGui()
-    if not gethiddengui then
-        return
-    end
-    local UIS = cloneref(game:GetService("UserInputService"))
-    local TextBox = UIS.GetFocusedTextBox(UIS)
-    if TextBox ~= nil and TextBox:IsDescendantOf(gethiddengui()) then  
-        return true
-    else 
-        return false
-    end
+task.spawn(function()
+if gethui or gethiddengui then
+while task.wait(0) do
+if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+TextBoxIsInHiddenInstance = true
 end
+if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethui()) then
+TextBoxIsInHiddenInstance = false
+end
+if UserInputService:GetFocusedTextBox() ~= nil and not gethiddengui and gethui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethui()) then
+TextBoxIsInHiddenInstance = true
+end
+if UserInputService:GetFocusedTextBox() ~= nil and not gethiddengui and gethui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethui()) then
+TextBoxIsInHiddenInstance = false
+end
+if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui not and gethui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) then
+TextBoxIsInHiddenInstance = true
+end
+if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not gethui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) then
+TextBoxIsInHiddenInstance = false
+end
+end
+end
+end)
 
 pcall(function()
 if gethui and gethui() and hookfunction then
@@ -289,12 +290,12 @@ end]]--
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
-    	oldShutdown = hookfunction(game.Shutdown, function(...) 
+    	oldShutdown = hookfunction(game.Shutdown, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return oldShutdown(...)
+    			return oldShutdown(arg1)
     		end
 		end)
     end
@@ -309,52 +310,52 @@ if hookfunction ~= nil then
 		end)
     end
     if game ~= nil and pcall(function() tostring(game.OpenScreenshotsFolder) end) then
-    	OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, function(...) 
+    	OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return OpenScreenshotsFolder(...)
+    			return OpenScreenshotsFolder(arg1)
     		end
 		end)
     end
     if game ~= nil and pcall(function() tostring(game.OpenVideosFolder) end) then
-    	OpenVideosFolder = hookfunction(game.OpenVideosFolder, function(...) 
+    	OpenVideosFolder = hookfunction(game.OpenVideosFolder, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return OpenVideosFolder(...)
+    			return OpenVideosFolder(arg1)
     		end
 		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.SetUserGuiRendering) end) then
-    	SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, function(...) 
+    	SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return SetUserGuiRendering(...)
+    			return SetUserGuiRendering(arg1)
     		end
 		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.TakeScreenshot) end) then
-    	TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, function(...) 
+    	TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return TakeScreenshot(...)
+    			return TakeScreenshot(arg1)
     		end
 		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.ToggleRecording) end) then
-    	ToggleRecording = hookfunction(CoreGui.ToggleRecording, function(...) 
+    	ToggleRecording = hookfunction(CoreGui.ToggleRecording, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return ToggleRecording(...)
+    			return ToggleRecording(arg1)
     		end
 		end)
     end
@@ -379,246 +380,237 @@ if hookfunction ~= nil then
 		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.ToggleFullscreen) end) then
-    	ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function(...) 
+    	ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return ToggleFullscreen(...)
+    			return ToggleFullscreen(arg1)
     		end
 		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenBrowserWindow) end) then
-    	OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, function(...) 
+    	OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return OpenBrowserWindow(...)
+    			return OpenBrowserWindow(arg1)
     		end
 		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenNativeOverlay) end) then
-    	OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, function(...) 
+    	OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return OpenNativeOverlay(...)
+    			return OpenNativeOverlay(arg1)
     		end
 		end)
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.GetUserAgent) end) then
-    	GetUserAgent = hookfunction(HttpService.GetUserAgent, function(...) 
+    	GetUserAgent = hookfunction(HttpService.GetUserAgent, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetUserAgent(...)
+    			return GetUserAgent(arg1)
     		end
 		end)
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.RequestInternal) end) then
-    	RequestInternal = hookfunction(HttpService.RequestInternal, function(...) 
+    	RequestInternal = hookfunction(HttpService.RequestInternal, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return RequestInternal(...)
+    			return RequestInternal(arg1)
     		end
 		end)
     end
     if ScriptContext ~= nil and pcall(function() tostring(ScriptContext.AddCoreScriptLocal) end) then
-    	AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, function(...) 
+    	AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return AddCoreScriptLocal(...)
+    			return AddCoreScriptLocal(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
-    	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(...) 
+    	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetOutputDevice(...)
+    			return GetOutputDevice(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevices) end) then
-    	GetOutputDevices = hookfunction(SoundService.GetOutputDevices, function(...) 
+    	GetOutputDevices = hookfunction(SoundService.GetOutputDevices, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetOutputDevices(...)
+    			return GetOutputDevices(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
-    	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(...) 
+    	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetOutputDevice(...)
+    			return GetOutputDevice(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevice) end) then
-    	GetInputDevice = hookfunction(SoundService.GetInputDevice, function() 
+    	GetInputDevice = hookfunction(SoundService.GetInputDevice, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetInputDevice(...)
+    			return GetInputDevice(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevices) end) then
-    	GetInputDevices = hookfunction(SoundService.GetInputDevices, function(...) 
+    	GetInputDevices = hookfunction(SoundService.GetInputDevices, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetInputDevices(...)
+    			return GetInputDevices(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetInputDevice) end) then
-    	SetInputDevice = hookfunction(SoundService.SetInputDevice, function(...) 
+    	SetInputDevice = hookfunction(SoundService.SetInputDevice, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return SetInputDevice(...)
+    			return SetInputDevice(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetRecordingDevices) end) then
-    	GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, function(...) 
+    	GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetRecordingDevices(...)
+    			return GetRecordingDevices(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetRecordingDevice) end) then
-    	SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, function(...) 
+    	SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return SetRecordingDevice(...)
+    			return SetRecordingDevice(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
-    	BeginRecording = hookfunction(SoundService.BeginRecording, function(...) 
+    	BeginRecording = hookfunction(SoundService.BeginRecording, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return BeginRecording(...)
+    			return BeginRecording(arg1)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
-    	BeginRecording = hookfunction(SoundService.EndRecording, function(...) 
+    	BeginRecording = hookfunction(SoundService.EndRecording, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return BeginRecording(...)
+    			return BeginRecording(arg1)
     		end
 		end)
     end
     if LogService ~= nil and pcall(function() tostring(LogService.GetHttpResultHistory) end) then
-    	GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, function(...) 
+    	GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetHttpResultHistory(...)
+    			return GetHttpResultHistory(arg1)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetAudioProcessingSettings) end) then
-    	GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, function(...) 
+    	GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetAudioProcessingSettings(...)
+    			return GetAudioProcessingSettings(arg1)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetMicDevices) end) then
-    	GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, function(...) 
+    	GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetMicDevices(...)
+    			return GetMicDevices(arg1)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetSpeakerDevices) end) then
-    	GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, function(...) 
+    	GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return GetSpeakerDevices(...)
+    			return GetSpeakerDevices(arg1)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetSpeakerDevice) end) then
-    	SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, function(...) 
+    	SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return SetSpeakerDevice(...)
+    			return SetSpeakerDevice(arg1)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetMicDevice) end) then
-    	SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, function(...) 
+    	SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, function(arg1) 
     		if checkcaller() then
     			return function()
     		end 
     			elseif not checkcaller() then
-    			return SetMicDevice(...)
+    			return SetMicDevice(arg1)
     		end
 		end)
     end
 end
 end))
 
-if gethui ~= nil or gethiddengui ~= nil then
-OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function(...)		
+if gethui ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
+OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function(arg1)		
     if not checkcaller() then
-        if gethui ~= nil and UserInputService ~= nil and IsTextBoxInGetHiddenUi() then
+        if TextBoxIsInHiddenInstance then 
 	    return nil
-        end
-        if gethiddengui ~= nil and UserInputService ~= nil and IsTextBoxInGetHiddenGui() then
-            return nil
-        end
-        if gethui ~= nil and UserInputService ~= nil and not IsTextBoxInGetHiddenUi() then
-            return OldGetFocusedTextBox(...)
-        end
-        if gethiddengui ~= nil and UserInputService ~= nil and not IsTextBoxInGetHiddenGui() then
-            return OldGetFocusedTextBox(...)
         end
     end
     if checkcaller() then
-        return OldGetFocusedTextBox(...)
+        return OldGetFocusedTextBox(arg1)
     end
 end)
 end
@@ -891,11 +883,7 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
         if not checkcaller() then
         local NameCallMethod = getnamecallmethod()
 
-        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and IsTextBoxInGetHiddenUi() then
-            return nil
-        end
-
-        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and IsTextBoxInGetHiddenGui() then
+        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
             return nil
         end
 
