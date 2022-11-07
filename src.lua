@@ -363,10 +363,6 @@ end
 end)
 
 task.spawn(coroutine.create(function()
--- wait until game is loaded to ensure error 268 doesn't occur
---[[if not game:IsLoaded() then
-    game.Loaded:Wait()
-end]]--
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
