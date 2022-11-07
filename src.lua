@@ -243,9 +243,10 @@ if gethui or gethiddengui then
 game:GetService("RunService"):BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
-end
+else
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = false
+end
 end
 end)
 end
@@ -869,8 +870,11 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
         if not checkcaller() then
         local NameCallMethod = getnamecallmethod()
 
-        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
-            return nil
+        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" then
+        	RunService.RenderStepped:Wait()
+        	if TextBoxIsInHiddenInstance then
+        		return nil
+		end
         end
 
         end
