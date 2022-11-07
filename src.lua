@@ -907,13 +907,11 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 
         if not checkcaller() then
         local NameCallMethod = getnamecallmethod()
-        
-        RunService.RenderStepped:Wait()
 
         if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" then
         	if TextBoxIsInHiddenInstance then
-        		return nil
-			end
+        	return nil
+		end
         end
 
         end
