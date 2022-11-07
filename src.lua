@@ -239,9 +239,8 @@ local LocalPlayer = Players.LocalPlayer
 
 local TextBoxIsInHiddenInstance = false
 
-task.spawn(function()
 if gethui or gethiddengui then
-while task.wait(0) do
+game:GetService("RunService"):BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
 end
@@ -260,9 +259,8 @@ end
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not gethui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) then
 TextBoxIsInHiddenInstance = false
 end
-end
-end
 end)
+end
 
 pcall(function()
 if gethui and gethui() and hookfunction then
