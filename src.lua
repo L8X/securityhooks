@@ -599,6 +599,7 @@ end
 end))
 
 if gethui ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
+local OldGetFocusedTextBox 
 OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()
     local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
     local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui		
