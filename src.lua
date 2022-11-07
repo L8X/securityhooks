@@ -15,6 +15,7 @@ local _G = _G
 local shared = shared
 local gethui = gethui or gethiddenui or hiddenui
 local gethiddengui = gethiddengui
+local cloneref = cloneref
 
 local genv = getfenv(0) or _G or shared
 
@@ -240,7 +241,8 @@ local function IsTextBoxInGetHiddenUi()
     if not gethui then
         return
     end
-    local TextBox = UserInputService:GetFocusedTextBox()
+    local UIS = cloneref(game:GetService("UserInputService"))
+    local TextBox = UIS:GetFocusedTextBox()
     if TextBox ~= nil and TextBox:IsDescendantOf(gethui()) then 
         return true
     else 
@@ -252,7 +254,8 @@ local function IsTextBoxInGetHiddenGui()
     if not gethiddengui then
         return
     end
-    local TextBox = UserInputService:GetFocusedTextBox()
+    local UIS = cloneref(game:GetService("UserInputService"))
+    local TextBox = UIS:GetFocusedTextBox()
     if TextBox ~= nil and TextBox:IsDescendantOf(gethiddengui()) then  
         return true
     else 
@@ -599,9 +602,7 @@ end
 end))
 
 if gethui ~= nil or gethiddengui ~= nil then
-OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()
-    local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
-    local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui		
+OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()		
     if not checkcaller() then
         if gethui ~= nil and UserInputService ~= nil and Is_TB_In_gethui() then
 	    return nil
