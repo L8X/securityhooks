@@ -240,7 +240,7 @@ local function IsTextBoxInGetHiddenUi()
     if not gethui then
         return
     end
-    local TextBox = UserInputService.GetFocusedTextBox(UserInputService)
+    local TextBox = UserInputService:GetFocusedTextBox()
     if TextBox ~= nil and TextBox:IsDescendantOf(gethui()) then 
         return true
     else 
@@ -252,7 +252,7 @@ local function IsTextBoxInGetHiddenGui()
     if not gethiddengui then
         return
     end
-    local TextBox = UserInputService.GetFocusedTextBox(UserInputService)
+    local TextBox = UserInputService:GetFocusedTextBox()
     if TextBox ~= nil and TextBox:IsDescendantOf(gethiddengui()) then  
         return true
     else 
@@ -598,8 +598,7 @@ if hookfunction ~= nil then
 end
 end))
 
-if gethui ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
-local OldGetFocusedTextBox 
+if gethui ~= nil or gethiddengui ~= nil then
 OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function()
     local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
     local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui		
@@ -610,8 +609,16 @@ OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function
         if gethiddengui ~= nil and UserInputService ~= nil and Is_TB_In_gethiddengui() then
             return nil
         end
+        if gethui ~= nil and UserInputService ~= nil and not Is_TB_In_gethui() then
+            return OldGetFocusedTextBox
+        end
+        if gethiddengui ~= nil and UserInputService ~= nil and not Is_TB_In_gethiddengui() then
+            return OldGetFocusedTextBox
+        end
     end
-    return OldGetFocusedTextBox
+    if checkcaller() then
+        return OldGetFocusedTextBox
+    end
 end)
 end
 
@@ -881,49 +888,16 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
             return
         end
 
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and NameCallMethod == "destroy" then
-            return
-        end
-        
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and NameCallMethod == "Destroy" then
-            return
-        end
-
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and NameCallMethod == "remove" then
-            return
-        end
-
-        if gethui and typeof(gethui) == "function" and typeof(gethui()) == "Instance" and Self == gethui() and NameCallMethod == "Remove" then
-            return
-        end
-        
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and NameCallMethod == "destroy" then
-            return
-        end
-        
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and NameCallMethod == "Destroy" then
-            return
-        end
-
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and NameCallMethod == "remove" then
-            return
-        end
-
-        if gethiddengui and typeof(gethiddengui) == "function" and typeof(gethiddengui()) == "Instance" and Self == gethiddengui() and NameCallMethod == "Remove" then
-            return
-        end
-
         end
 
         if not checkcaller() then
- 
-	local NameCallMethod = getnamecallmethod()		
-	
-        if gethui ~= nil and UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and Is_TB_In_gethui() then
+        local NameCallMethod = getnamecallmethod()
+
+        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and Is_TB_In_gethui() then
             return nil
         end
 
-        if gethiddengui ~= nil and UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
+        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and Is_TB_In_gethiddengui() then
             return nil
         end
 
