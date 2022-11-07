@@ -610,16 +610,8 @@ OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function
         if gethiddengui ~= nil and UserInputService ~= nil and Is_TB_In_gethiddengui() then
             return nil
         end
-        if gethui ~= nil and UserInputService ~= nil and not Is_TB_In_gethui() then
-            return OldGetFocusedTextBox
-        end
-        if gethiddengui ~= nil and UserInputService ~= nil and not Is_TB_In_gethiddengui() then
-            return OldGetFocusedTextBox
-        end
     end
-    if checkcaller() then
-        return OldGetFocusedTextBox
-    end
+    return OldGetFocusedTextBox
 end)
 end
 
