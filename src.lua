@@ -242,7 +242,7 @@ local function IsTextBoxInGetHiddenUi()
         return
     end
     local UIS = cloneref(game:GetService("UserInputService"))
-    local TextBox = UIS:GetFocusedTextBox()
+    local TextBox = UIS.GetFocusedTextBox(UIS)
     if TextBox ~= nil and TextBox:IsDescendantOf(gethui()) then 
         return true
     else 
@@ -255,7 +255,7 @@ local function IsTextBoxInGetHiddenGui()
         return
     end
     local UIS = cloneref(game:GetService("UserInputService"))
-    local TextBox = UIS:GetFocusedTextBox()
+    local TextBox = UIS.GetFocusedTextBox(UIS)
     if TextBox ~= nil and TextBox:IsDescendantOf(gethiddengui()) then  
         return true
     else 
