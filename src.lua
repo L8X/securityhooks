@@ -275,6 +275,58 @@ BindableEvent:Fire()
 end
 end)
 
+task.spawn(function()
+while task.wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+task.spawn(function()
+while RunService.Heartbeat:Wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+task.spawn(function()
+while RunService.Stepped:Wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+task.spawn(function()
+while RunService.RenderStepped:Wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+task.spawn(function()
+while RunService.PreSimulation:Wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+task.spawn(function()
+while RunService.PostSimulation:Wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+task.spawn(function()
+while RunService.PreAnimation:Wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+task.spawn(function()
+while RunService.PreRender:Wait(0) do
+BindableEvent:Fire()
+end
+end)
+
+RunService:BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
+BindableEvent:Fire()
+end)
+
 local TextBoxIsInHiddenInstance = false
 
 if gethui or gethiddengui then
