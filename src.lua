@@ -331,16 +331,13 @@ local TextBoxIsInHiddenInstance = false
 
 if gethui or gethiddengui then
 AllStepped:Connect(function()
-task.spawn(function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
-end
-end)
-task.spawn(function()
+else
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = false
 end
-end)
+end
 end)
 end
 
