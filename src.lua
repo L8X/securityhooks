@@ -241,22 +241,10 @@ local TextBoxIsInHiddenInstance = false
 
 if gethui or gethiddengui then
 game:GetService("RunService"):BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
-if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
 end
-if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and gethui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethui()) then
-TextBoxIsInHiddenInstance = false
-end
-if UserInputService:GetFocusedTextBox() ~= nil and not gethiddengui and gethui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethui()) then
-TextBoxIsInHiddenInstance = true
-end
-if UserInputService:GetFocusedTextBox() ~= nil and not gethiddengui and gethui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethui()) then
-TextBoxIsInHiddenInstance = false
-end
-if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui not and gethui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) then
-TextBoxIsInHiddenInstance = true
-end
-if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not gethui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) then
+if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = false
 end
 end)
