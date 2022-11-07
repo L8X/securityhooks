@@ -923,7 +923,9 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
         end
 
         if not checkcaller() then
-
+ 
+	local NameCallMethod = getnamecallmethod()		
+	
         if gethui ~= nil and UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and Is_TB_In_gethui() then
             return nil
         end
