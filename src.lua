@@ -329,7 +329,6 @@ end)
 
 local TextBoxIsInHiddenInstance = false
 
-if gethui or gethiddengui then
 AllStepped:Connect(function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
@@ -339,7 +338,6 @@ TextBoxIsInHiddenInstance = false
 end
 end
 end)
-end
 
 pcall(function()
 if gethui and gethui() and hookfunction then
