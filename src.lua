@@ -627,10 +627,10 @@ local OldNameCall = nil
 OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 	local Is_TB_In_gethui = IsTextBoxInGetHiddenUi
         local Is_TB_In_gethiddengui = IsTextBoxInGetHiddenGui
-	
-	local NameCallMethod = getnamecallmethod()
 		
         if checkcaller() then
+			
+	local NameCallMethod = getnamecallmethod()
 
         if game ~= nil and Self == game and NameCallMethod == "Shutdown" then
             return
