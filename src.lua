@@ -378,6 +378,10 @@ end
 end)
 
 task.spawn(coroutine.create(function()
+-- potential 268 fix
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
