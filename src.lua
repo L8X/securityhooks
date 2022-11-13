@@ -245,43 +245,29 @@ RunService.Heartbeat:Connect(function()
 BindableEvent:Fire()
 end)
 
-task.wait()
-
 RunService.Stepped:Connect(function()
 BindableEvent:Fire()
 end)
-
-task.wait()
 
 RunService.RenderStepped:Connect(function()
 BindableEvent:Fire()
 end)
 
-task.wait()
-
 RunService.PreSimulation:Connect(function()
 BindableEvent:Fire()
 end)
-
-task.wait()
 
 RunService.PostSimulation:Connect(function()
 BindableEvent:Fire()
 end)
 
-task.wait()
-
 RunService.PreAnimation:Connect(function()
 BindableEvent:Fire()
 end)
 
-task.wait()
-
 RunService.PreRender:Connect(function()
 BindableEvent:Fire()
 end)
-
-task.wait()
 
 task.spawn(function()
 while task.wait(0) do
@@ -289,23 +275,18 @@ BindableEvent:Fire()
 end
 end)
 
-task.wait()
-
 task.spawn(function()
 while wait(0) do
 BindableEvent:Fire()
 end
 end)
 
-task.wait()
-
+--[[
 task.spawn(function()
 while RunService.Heartbeat:Wait() do
 BindableEvent:Fire()
 end
 end)
-
-task.wait()
 
 task.spawn(function()
 while RunService.Stepped:Wait() do
@@ -313,15 +294,11 @@ BindableEvent:Fire()
 end
 end)
 
-task.wait()
-
 task.spawn(function()
 while RunService.RenderStepped:Wait() do
 BindableEvent:Fire()
 end
 end)
-
-task.wait()
 
 task.spawn(function()
 while RunService.PreSimulation:Wait() do
@@ -329,15 +306,11 @@ BindableEvent:Fire()
 end
 end)
 
-task.wait()
-
 task.spawn(function()
 while RunService.PostSimulation:Wait() do
 BindableEvent:Fire()
 end
 end)
-
-task.wait()
 
 task.spawn(function()
 while RunService.PreAnimation:Wait() do
@@ -345,16 +318,12 @@ BindableEvent:Fire()
 end
 end)
 
-task.wait()
-
 task.spawn(function()
 while RunService.PreRender:Wait() do
 BindableEvent:Fire()
 end
 end)
-
-task.wait()
-
+]]--
 RunService:BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
 BindableEvent:Fire()
 end)
@@ -371,8 +340,6 @@ end
 end
 end)
 
-task.wait()
-
 UserInputService.TextBoxFocused:Connect(function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
@@ -382,8 +349,6 @@ TextBoxIsInHiddenInstance = false
 end
 end	
 end)
-
-task.wait()
 
 UserInputService.TextBoxFocusReleased:Connect(function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
@@ -398,11 +363,8 @@ end)
 pcall(function()
 if gethui and gethui() and hookfunction then
 hookfunction(gethui().destroy, function() end)
-task.wait()
 hookfunction(gethui().Destroy, function() end)
-task.wait()
 hookfunction(gethui().remove, function() end)
-task.wait()
 hookfunction(gethui().Remove, function() end)	
 end
 end)
@@ -410,20 +372,17 @@ end)
 pcall(function()
 if gethiddengui and gethiddengui() and hookfunction then
 hookfunction(gethiddengui().destroy, function() end)
-task.wait()
 hookfunction(gethiddengui().Destroy, function() end)
-task.wait()
 hookfunction(gethiddengui().remove, function() end)
-task.wait()
 hookfunction(gethiddengui().Remove, function() end)	
 end
 end)
 
 task.spawn(coroutine.create(function()
---[[ potential 268 fix
+-- potential 268 fix
 if not game:IsLoaded() then
     game.Loaded:Wait()
-end]]--
+end
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
@@ -436,7 +395,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if game ~= nil and pcall(function() tostring(game.ReportInGoogleAnalytics) end) then
     	ReportInGoogleAnalytics = hookfunction(game.ReportInGoogleAnalytics, function(arg1, arg2, arg3, arg4) 
     		if checkcaller() then
@@ -447,7 +405,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if game ~= nil and pcall(function() tostring(game.OpenScreenshotsFolder) end) then
     	OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, function(arg1) 
     		if checkcaller() then
@@ -458,7 +415,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if game ~= nil and pcall(function() tostring(game.OpenVideosFolder) end) then
     	OpenVideosFolder = hookfunction(game.OpenVideosFolder, function(arg1) 
     		if checkcaller() then
@@ -469,7 +425,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.SetUserGuiRendering) end) then
     	SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, function(arg1) 
     		if checkcaller() then
@@ -480,7 +435,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.TakeScreenshot) end) then
     	TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, function(arg1) 
     		if checkcaller() then
@@ -491,7 +445,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.ToggleRecording) end) then
     	ToggleRecording = hookfunction(CoreGui.ToggleRecording, function(arg1) 
     		if checkcaller() then
@@ -502,7 +455,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuse) end) then
     	ReportAbuse = hookfunction(Players.ReportAbuse, function(arg1, arg2, arg3) 
     		if checkcaller() then
@@ -513,7 +465,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuseV3) end) then
     	ReportAbuseV3 = hookfunction(Players.ReportAbuseV3, function(arg1, arg2) 
     		if checkcaller() then
@@ -524,7 +475,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if GuiService ~= nil and pcall(function() tostring(GuiService.ToggleFullscreen) end) then
     	ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function(arg1) 
     		if checkcaller() then
@@ -535,7 +485,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenBrowserWindow) end) then
     	OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, function(arg1) 
     		if checkcaller() then
@@ -546,7 +495,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenNativeOverlay) end) then
     	OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, function(arg1) 
     		if checkcaller() then
@@ -557,7 +505,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if HttpService ~= nil and pcall(function() tostring(HttpService.GetUserAgent) end) then
     	GetUserAgent = hookfunction(HttpService.GetUserAgent, function(arg1) 
     		if checkcaller() then
@@ -568,7 +515,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if HttpService ~= nil and pcall(function() tostring(HttpService.RequestInternal) end) then
     	RequestInternal = hookfunction(HttpService.RequestInternal, function(arg1) 
     		if checkcaller() then
@@ -579,7 +525,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if ScriptContext ~= nil and pcall(function() tostring(ScriptContext.AddCoreScriptLocal) end) then
     	AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, function(arg1) 
     		if checkcaller() then
@@ -589,8 +534,7 @@ if hookfunction ~= nil then
     			return AddCoreScriptLocal(arg1)
     		end
 		end)
-    end    
-    task.wait()
+    end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
     	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1) 
     		if checkcaller() then
@@ -601,7 +545,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevices) end) then
     	GetOutputDevices = hookfunction(SoundService.GetOutputDevices, function(arg1) 
     		if checkcaller() then
@@ -612,7 +555,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
     	GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1) 
     		if checkcaller() then
@@ -623,7 +565,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevice) end) then
     	GetInputDevice = hookfunction(SoundService.GetInputDevice, function(arg1) 
     		if checkcaller() then
@@ -634,7 +575,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevices) end) then
     	GetInputDevices = hookfunction(SoundService.GetInputDevices, function(arg1) 
     		if checkcaller() then
@@ -645,7 +585,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()	
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetInputDevice) end) then
     	SetInputDevice = hookfunction(SoundService.SetInputDevice, function(arg1) 
     		if checkcaller() then
@@ -656,7 +595,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetRecordingDevices) end) then
     	GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, function(arg1) 
     		if checkcaller() then
@@ -667,7 +605,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetRecordingDevice) end) then
     	SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, function(arg1) 
     		if checkcaller() then
@@ -678,7 +615,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
     	BeginRecording = hookfunction(SoundService.BeginRecording, function(arg1) 
     		if checkcaller() then
@@ -689,7 +625,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
     	BeginRecording = hookfunction(SoundService.EndRecording, function(arg1) 
     		if checkcaller() then
@@ -700,7 +635,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if LogService ~= nil and pcall(function() tostring(LogService.GetHttpResultHistory) end) then
     	GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, function(arg1) 
     		if checkcaller() then
@@ -711,7 +645,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetAudioProcessingSettings) end) then
     	GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, function(arg1) 
     		if checkcaller() then
@@ -722,7 +655,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetMicDevices) end) then
     	GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, function(arg1) 
     		if checkcaller() then
@@ -733,7 +665,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetSpeakerDevices) end) then
     	GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, function(arg1) 
     		if checkcaller() then
@@ -744,7 +675,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetSpeakerDevice) end) then
     	SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, function(arg1) 
     		if checkcaller() then
@@ -755,7 +685,6 @@ if hookfunction ~= nil then
     		end
 		end)
     end
-    task.wait()
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetMicDevice) end) then
     	SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, function(arg1) 
     		if checkcaller() then
@@ -768,8 +697,6 @@ if hookfunction ~= nil then
     end
 end
 end))
-
-task.wait()
 
 if gethui ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
 OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function(arg1)		
@@ -784,7 +711,6 @@ OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function
 end)
 end
 
-task.wait()
 
 local OldNameCall = nil
 
