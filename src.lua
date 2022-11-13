@@ -249,10 +249,6 @@ RunService.Stepped:Connect(function()
 BindableEvent:Fire()
 end)
 
-RunService.RenderStepped:Connect(function()
-BindableEvent:Fire()
-end)
-
 RunService.PreSimulation:Connect(function()
 BindableEvent:Fire()
 end)
@@ -275,55 +271,6 @@ BindableEvent:Fire()
 end
 end)
 
-task.spawn(function()
-while wait(0) do
-BindableEvent:Fire()
-end
-end)
-
---[[
-task.spawn(function()
-while RunService.Heartbeat:Wait() do
-BindableEvent:Fire()
-end
-end)
-
-task.spawn(function()
-while RunService.Stepped:Wait() do
-BindableEvent:Fire()
-end
-end)
-
-task.spawn(function()
-while RunService.RenderStepped:Wait() do
-BindableEvent:Fire()
-end
-end)
-
-task.spawn(function()
-while RunService.PreSimulation:Wait() do
-BindableEvent:Fire()
-end
-end)
-
-task.spawn(function()
-while RunService.PostSimulation:Wait() do
-BindableEvent:Fire()
-end
-end)
-
-task.spawn(function()
-while RunService.PreAnimation:Wait() do
-BindableEvent:Fire()
-end
-end)
-
-task.spawn(function()
-while RunService.PreRender:Wait() do
-BindableEvent:Fire()
-end
-end)
-]]--
 RunService:BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
 BindableEvent:Fire()
 end)
