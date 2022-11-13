@@ -245,29 +245,43 @@ RunService.Heartbeat:Connect(function()
 BindableEvent:Fire()
 end)
 
+task.wait()
+
 RunService.Stepped:Connect(function()
 BindableEvent:Fire()
 end)
+
+task.wait()
 
 RunService.RenderStepped:Connect(function()
 BindableEvent:Fire()
 end)
 
+task.wait()
+
 RunService.PreSimulation:Connect(function()
 BindableEvent:Fire()
 end)
+
+task.wait()
 
 RunService.PostSimulation:Connect(function()
 BindableEvent:Fire()
 end)
 
+task.wait()
+
 RunService.PreAnimation:Connect(function()
 BindableEvent:Fire()
 end)
 
+task.wait()
+
 RunService.PreRender:Connect(function()
 BindableEvent:Fire()
 end)
+
+task.wait()
 
 task.spawn(function()
 while task.wait(0) do
@@ -275,11 +289,15 @@ BindableEvent:Fire()
 end
 end)
 
+task.wait()
+
 task.spawn(function()
 while wait(0) do
 BindableEvent:Fire()
 end
 end)
+
+task.wait()
 
 task.spawn(function()
 while RunService.Heartbeat:Wait() do
@@ -287,11 +305,15 @@ BindableEvent:Fire()
 end
 end)
 
+task.wait()
+
 task.spawn(function()
 while RunService.Stepped:Wait() do
 BindableEvent:Fire()
 end
 end)
+
+task.wait()
 
 task.spawn(function()
 while RunService.RenderStepped:Wait() do
@@ -299,11 +321,15 @@ BindableEvent:Fire()
 end
 end)
 
+task.wait()
+
 task.spawn(function()
 while RunService.PreSimulation:Wait() do
 BindableEvent:Fire()
 end
 end)
+
+task.wait()
 
 task.spawn(function()
 while RunService.PostSimulation:Wait() do
@@ -311,17 +337,23 @@ BindableEvent:Fire()
 end
 end)
 
+task.wait()
+
 task.spawn(function()
 while RunService.PreAnimation:Wait() do
 BindableEvent:Fire()
 end
 end)
 
+task.wait()
+
 task.spawn(function()
 while RunService.PreRender:Wait() do
 BindableEvent:Fire()
 end
 end)
+
+task.wait()
 
 RunService:BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
 BindableEvent:Fire()
@@ -339,6 +371,8 @@ end
 end
 end)
 
+task.wait()
+
 UserInputService.TextBoxFocused:Connect(function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
 TextBoxIsInHiddenInstance = true
@@ -348,6 +382,8 @@ TextBoxIsInHiddenInstance = false
 end
 end	
 end)
+
+task.wait()
 
 UserInputService.TextBoxFocusReleased:Connect(function()
 if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
