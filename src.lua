@@ -362,8 +362,11 @@ end)
 pcall(function()
 if gethui and gethui() and hookfunction then
 hookfunction(gethui().destroy, function() end)
+task.wait()
 hookfunction(gethui().Destroy, function() end)
+task.wait()
 hookfunction(gethui().remove, function() end)
+task.wait()
 hookfunction(gethui().Remove, function() end)	
 end
 end)
@@ -371,17 +374,20 @@ end)
 pcall(function()
 if gethiddengui and gethiddengui() and hookfunction then
 hookfunction(gethiddengui().destroy, function() end)
+task.wait()
 hookfunction(gethiddengui().Destroy, function() end)
+task.wait()
 hookfunction(gethiddengui().remove, function() end)
+task.wait()
 hookfunction(gethiddengui().Remove, function() end)	
 end
 end)
 
 task.spawn(coroutine.create(function()
--- potential 268 fix
+--[[ potential 268 fix
 if not game:IsLoaded() then
     game.Loaded:Wait()
-end
+end]]--
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
