@@ -286,9 +286,6 @@ end
 end)
 
 task.spawn(function()
-if not game:IsLoaded() then
-game.Loaded:Wait()
-end
 if gethui and gethui() and hookfunction then
 hookfunction(gethui().destroy, function() end)
 hookfunction(gethui().Destroy, function() end)
@@ -298,9 +295,6 @@ end
 end)
 
 task.spawn(function()
-if not game:IsLoaded() then
-game.Loaded:Wait()
-end
 if gethiddengui and gethiddengui() and hookfunction then
 hookfunction(gethiddengui().destroy, function() end)
 hookfunction(gethiddengui().Destroy, function() end)
@@ -309,6 +303,7 @@ hookfunction(gethiddengui().Remove, function() end)
 end
 end)
 
+--[[
 task.spawn(coroutine.create(function()
 -- potential 268 fix
 if not game:IsLoaded() then
@@ -628,6 +623,7 @@ if hookfunction ~= nil then
     end
 end
 end))
+]]--
 
 task.spawn(function()
 if gethui ~= nil and hookfunction ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
