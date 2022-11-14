@@ -249,7 +249,7 @@ RunService.Stepped:Connect(function()
 BindableEvent:Fire()
 end)
 
-RunService:BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
+RunService:BindToRenderStep(tostring(math.random(1e9, 2e9)), 10000, function()
 BindableEvent:Fire()
 end)
 
