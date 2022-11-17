@@ -303,7 +303,7 @@ hookfunction(gethiddengui().Remove, function() end)
 end
 end)
 
---[[
+
 task.spawn(coroutine.create(function()
 -- potential 268 fix
 if not game:IsLoaded() then
@@ -623,7 +623,7 @@ if hookfunction ~= nil then
     end
 end
 end))
-]]--
+
 
 task.spawn(function()
 if gethui ~= nil and hookfunction ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
