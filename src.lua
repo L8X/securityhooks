@@ -689,9 +689,7 @@ local OldNameCall = nil
 OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 		
         if checkcaller() then
-        local OriginalNameCallMethod = getnamecallmethod()
-        local NameCallMethod = SanitizeNamecallMethod(OriginalNameCallMethod)
-
+        local NameCallMethod = getnamecallmethod()
 
         if game ~= nil and Self == game and NameCallMethod == "Shutdown" then
             return
@@ -952,12 +950,16 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
         end
 
         if not checkcaller() then
-        local OriginalNameCallMethod = getnamecallmethod()
-        local NameCallMethod = SanitizeNamecallMethod(OriginalNameCallMethod)
+        local NameCallMethod = getnamecallmethod()
+        local SanitizedNamecallMethod = SanitizeNamecallMethod(NameCallMethod)
 
 
         if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
-        	return nil
+            return nil
+	end
+			
+	if UserInputService ~= nil and Self == UserInputService and SanitizedNamecallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
+            return nil
 	end
 
         end
