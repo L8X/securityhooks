@@ -41,6 +41,14 @@ if not checkcaller then
     return
 end
 
+local string = string
+local string_gsub = string.gsub 
+
+local function SanitizeNamecallMethod(str)
+    local tostringed = tostring(str)
+    return string_gsub(tostringed, "\0", "")
+end
+
 local debug = debug
 local debug_getfenv = debug.getfenv
 local debug_getmetatable = debug.getmetatable
@@ -645,7 +653,9 @@ local OldNameCall = nil
 OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 		
         if checkcaller() then
-        local NameCallMethod = getnamecallmethod()
+        local OriginalNameCallMethod = getnamecallmethod()
+        local NameCallMethod = SanitizeNamecallMethod(OriginalNameCallMethod)
+
 
         if game ~= nil and Self == game and NameCallMethod == "Shutdown" then
             return
