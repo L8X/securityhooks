@@ -350,318 +350,328 @@ end)
 
 task.spawn(coroutine.create(function()
 -- potential 268 fix
-if not game:IsLoaded() then
+--[[if not game:IsLoaded() then
     game.Loaded:Wait()
-end
+end]]--
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
-    	local oldShutdown = hookfunction(game.Shutdown, function(arg1) 
+    	local oldShutdown = hookfunction(game.Shutdown, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return oldShutdown(arg1)
+    			return oldShutdown(arg1, arg2)
     		end
 		end)
     end
     if game ~= nil and pcall(function() tostring(game.ReportInGoogleAnalytics) end) then
-    	local ReportInGoogleAnalytics = hookfunction(game.ReportInGoogleAnalytics, function(arg1, arg2, arg3, arg4) 
+    	local ReportInGoogleAnalytics = hookfunction(game.ReportInGoogleAnalytics, function(arg1, arg2, arg3, arg4, arg5) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return ReportInGoogleAnalytics(arg1, arg2, arg3, arg4)
+    			return ReportInGoogleAnalytics(arg1, arg2, arg3, arg4, arg5)
     		end
 		end)
     end
     if game ~= nil and pcall(function() tostring(game.OpenScreenshotsFolder) end) then
-    	local OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, function(arg1) 
+    	local OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return OpenScreenshotsFolder(arg1)
+    			return OpenScreenshotsFolder(arg1, arg2)
     		end
 		end)
     end
     if game ~= nil and pcall(function() tostring(game.OpenVideosFolder) end) then
-    	local OpenVideosFolder = hookfunction(game.OpenVideosFolder, function(arg1) 
+    	local OpenVideosFolder = hookfunction(game.OpenVideosFolder, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return OpenVideosFolder(arg1)
+    			return OpenVideosFolder(arg1, arg2)
     		end
 		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.SetUserGuiRendering) end) then
-    	local SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, function(arg1) 
+    	local SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return SetUserGuiRendering(arg1)
+    			return SetUserGuiRendering(arg1, arg2)
     		end
 		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.TakeScreenshot) end) then
-    	local TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, function(arg1) 
+    	local TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return TakeScreenshot(arg1)
+    			return TakeScreenshot(arg1, arg2)
     		end
 		end)
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.ToggleRecording) end) then
-    	local ToggleRecording = hookfunction(CoreGui.ToggleRecording, function(arg1) 
+    	local ToggleRecording = hookfunction(CoreGui.ToggleRecording, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return ToggleRecording(arg1)
+    			return ToggleRecording(arg1, arg2)
     		end
 		end)
     end
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuse) end) then
-    	local ReportAbuse = hookfunction(Players.ReportAbuse, function(arg1, arg2, arg3) 
+    	local ReportAbuse = hookfunction(Players.ReportAbuse, function(arg1, arg2, arg3, arg4) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return ReportAbuse(arg1, arg2, arg3)
+    			return ReportAbuse(arg1, arg2, arg3, arg4)
     		end
 		end)
     end
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuseV3) end) then
-    	local ReportAbuseV3 = hookfunction(Players.ReportAbuseV3, function(arg1, arg2) 
+    	local ReportAbuseV3 = hookfunction(Players.ReportAbuseV3, function(arg1, arg2, arg3) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return ReportAbuseV3(arg1, arg2)
+    			return ReportAbuseV3(arg1, arg2, arg3)
+    		end
+		end)
+    end
+    if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.Kick) end) then
+    	local Kick = hookfunction(LocalPlayer.Kick, function(arg1, arg2, arg3) 
+    		if checkcaller() then
+    			return
+    		end 
+    			elseif not checkcaller() then
+    			return Kick(arg1, arg2, arg3)
     		end
 		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.ToggleFullscreen) end) then
-    	local ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function(arg1) 
+    	local ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return ToggleFullscreen(arg1)
+    			return ToggleFullscreen(arg1, arg2)
     		end
 		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenBrowserWindow) end) then
-    	local OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, function(arg1) 
+    	local OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return OpenBrowserWindow(arg1)
+    			return OpenBrowserWindow(arg1, arg2)
     		end
 		end)
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenNativeOverlay) end) then
-    	local OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, function(arg1) 
+    	local OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return OpenNativeOverlay(arg1)
+    			return OpenNativeOverlay(arg1, arg2)
     		end
 		end)
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.GetUserAgent) end) then
-    	local GetUserAgent = hookfunction(HttpService.GetUserAgent, function(arg1) 
+    	local GetUserAgent = hookfunction(HttpService.GetUserAgent, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetUserAgent(arg1)
+    			return GetUserAgent(arg1, arg2)
     		end
 		end)
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.RequestInternal) end) then
-    	local RequestInternal = hookfunction(HttpService.RequestInternal, function(arg1) 
+    	local RequestInternal = hookfunction(HttpService.RequestInternal, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return RequestInternal(arg1)
+    			return RequestInternal(arg1, arg2)
     		end
 		end)
     end
     if ScriptContext ~= nil and pcall(function() tostring(ScriptContext.AddCoreScriptLocal) end) then
-    	local AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, function(arg1) 
+    	local AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return AddCoreScriptLocal(arg1)
+    			return AddCoreScriptLocal(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
-    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1) 
+    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetOutputDevice(arg1)
+    			return GetOutputDevice(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevices) end) then
-    	local GetOutputDevices = hookfunction(SoundService.GetOutputDevices, function(arg1) 
+    	local GetOutputDevices = hookfunction(SoundService.GetOutputDevices, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetOutputDevices(arg1)
+    			return GetOutputDevices(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
-    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1) 
+    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetOutputDevice(arg1)
+    			return GetOutputDevice(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevice) end) then
-    	local GetInputDevice = hookfunction(SoundService.GetInputDevice, function(arg1) 
+    	local GetInputDevice = hookfunction(SoundService.GetInputDevice, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetInputDevice(arg1)
+    			return GetInputDevice(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevices) end) then
-    	local GetInputDevices = hookfunction(SoundService.GetInputDevices, function(arg1) 
+    	local GetInputDevices = hookfunction(SoundService.GetInputDevices, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetInputDevices(arg1)
+    			return GetInputDevices(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetInputDevice) end) then
-    	local SetInputDevice = hookfunction(SoundService.SetInputDevice, function(arg1) 
+    	local SetInputDevice = hookfunction(SoundService.SetInputDevice, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return SetInputDevice(arg1)
+    			return SetInputDevice(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetRecordingDevices) end) then
-    	local GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, function(arg1) 
+    	local GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetRecordingDevices(arg1)
+    			return GetRecordingDevices(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetRecordingDevice) end) then
-    	local SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, function(arg1) 
+    	local SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return SetRecordingDevice(arg1)
+    			return SetRecordingDevice(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
-    	local BeginRecording = hookfunction(SoundService.BeginRecording, function(arg1) 
+    	local BeginRecording = hookfunction(SoundService.BeginRecording, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return BeginRecording(arg1)
+    			return BeginRecording(arg1, arg2)
     		end
 		end)
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
-    	local BeginRecording = hookfunction(SoundService.EndRecording, function(arg1) 
+    	local BeginRecording = hookfunction(SoundService.EndRecording, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return BeginRecording(arg1)
+    			return BeginRecording(arg1, arg2)
     		end
 		end)
     end
     if LogService ~= nil and pcall(function() tostring(LogService.GetHttpResultHistory) end) then
-    	local GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, function(arg1) 
+    	local GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetHttpResultHistory(arg1)
+    			return GetHttpResultHistory(arg1, arg2)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetAudioProcessingSettings) end) then
-    	local GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, function(arg1) 
+    	local GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetAudioProcessingSettings(arg1)
+    			return GetAudioProcessingSettings(arg1, arg2)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetMicDevices) end) then
-    	local GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, function(arg1) 
+    	local GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetMicDevices(arg1)
+    			return GetMicDevices(arg1, arg2)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetSpeakerDevices) end) then
-    	local GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, function(arg1) 
+    	local GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return GetSpeakerDevices(arg1)
+    			return GetSpeakerDevices(arg1, arg2)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetSpeakerDevice) end) then
-    	local SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, function(arg1) 
+    	local SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return SetSpeakerDevice(arg1)
+    			return SetSpeakerDevice(arg1, arg2)
     		end
 		end)
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetMicDevice) end) then
-    	local SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, function(arg1) 
+    	local SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, function(arg1, arg2) 
     		if checkcaller() then
-    			return function()
+    			return
     		end 
     			elseif not checkcaller() then
-    			return SetMicDevice(arg1)
+    			return SetMicDevice(arg1, arg2)
     		end
 		end)
     end
@@ -951,16 +961,23 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 
         if not checkcaller() then
         local NameCallMethod = getnamecallmethod()
-        local SanitizedNamecallMethod = SanitizeNamecallMethod(NameCallMethod)
-
+        --local SanitizedNamecallMethod = SanitizeNamecallMethod(NameCallMethod)
 
         if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
             return nil
 	end
 			
-	if UserInputService ~= nil and Self == UserInputService and SanitizedNamecallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
+	--[[if UserInputService ~= nil and Self == UserInputService and SanitizedNamecallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
             return nil
+	end]]--
+
+        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "Kick" then
+            return
 	end
+			
+	--[[if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and SanitizedNamecallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
+            return
+	end]]--
 
         end
 
