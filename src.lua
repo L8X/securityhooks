@@ -23,10 +23,6 @@ local getgenv = getgenv or function()
 	return genv
 end
 
-if identifyexecutor and identifyexecutor() == "ScriptWare" then
-	getrawmetatable(getfenv(0)).__index = getgenv()
-end
-
 if (getgenv().EXPRO_SECURITYHOOKS_LOADED) then return; end
 
 getgenv().EXPRO_SECURITYHOOKS_LOADED = true
@@ -361,6 +357,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return oldShutdown(arg1, arg2)
     		end
 		end)
@@ -371,6 +368,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return ReportInGoogleAnalytics(arg1, arg2, arg3, arg4, arg5)
     		end
 		end)
@@ -381,6 +379,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return OpenScreenshotsFolder(arg1, arg2)
     		end
 		end)
@@ -391,6 +390,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return OpenVideosFolder(arg1, arg2)
     		end
 		end)
@@ -401,6 +401,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return SetUserGuiRendering(arg1, arg2)
     		end
 		end)
@@ -411,6 +412,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return TakeScreenshot(arg1, arg2)
     		end
 		end)
@@ -421,6 +423,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return ToggleRecording(arg1, arg2)
     		end
 		end)
@@ -431,6 +434,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return ReportAbuse(arg1, arg2, arg3, arg4)
     		end
 		end)
@@ -441,6 +445,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return ReportAbuseV3(arg1, arg2, arg3)
     		end
 		end)
@@ -451,7 +456,8 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
-    			return Kick(arg1, arg2, arg3)
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
+    			return
     		end
 		end)
     end
@@ -461,6 +467,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return ToggleFullscreen(arg1, arg2)
     		end
 		end)
@@ -471,6 +478,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return OpenBrowserWindow(arg1, arg2)
     		end
 		end)
@@ -481,6 +489,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return OpenNativeOverlay(arg1, arg2)
     		end
 		end)
@@ -491,6 +500,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetUserAgent(arg1, arg2)
     		end
 		end)
@@ -501,6 +511,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return RequestInternal(arg1, arg2)
     		end
 		end)
@@ -511,6 +522,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return AddCoreScriptLocal(arg1, arg2)
     		end
 		end)
@@ -521,6 +533,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetOutputDevice(arg1, arg2)
     		end
 		end)
@@ -531,6 +544,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetOutputDevices(arg1, arg2)
     		end
 		end)
@@ -541,6 +555,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetOutputDevice(arg1, arg2)
     		end
 		end)
@@ -551,6 +566,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetInputDevice(arg1, arg2)
     		end
 		end)
@@ -561,6 +577,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetInputDevices(arg1, arg2)
     		end
 		end)
@@ -571,6 +588,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return SetInputDevice(arg1, arg2)
     		end
 		end)
@@ -581,6 +599,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetRecordingDevices(arg1, arg2)
     		end
 		end)
@@ -591,6 +610,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return SetRecordingDevice(arg1, arg2)
     		end
 		end)
@@ -601,6 +621,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return BeginRecording(arg1, arg2)
     		end
 		end)
@@ -611,6 +632,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return BeginRecording(arg1, arg2)
     		end
 		end)
@@ -621,6 +643,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetHttpResultHistory(arg1, arg2)
     		end
 		end)
@@ -631,6 +654,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetAudioProcessingSettings(arg1, arg2)
     		end
 		end)
@@ -641,6 +665,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetMicDevices(arg1, arg2)
     		end
 		end)
@@ -651,6 +676,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return GetSpeakerDevices(arg1, arg2)
     		end
 		end)
@@ -661,6 +687,7 @@ if hookfunction ~= nil then
     			return
     		end 
     			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return SetSpeakerDevice(arg1, arg2)
     		end
 		end)
@@ -670,7 +697,8 @@ if hookfunction ~= nil then
     		if checkcaller() then
     			return
     		end 
-    			elseif not checkcaller() then
+    			elseif not checkcaller() then 
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return SetMicDevice(arg1, arg2)
     		end
 		end)
@@ -678,21 +706,23 @@ if hookfunction ~= nil then
 end
 end))
 
+local OldGetFocusedTextBox
 
-task.spawn(function()
 if gethui ~= nil and hookfunction ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
 OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function(arg1)		
     if not checkcaller() then
         if TextBoxIsInHiddenInstance then 
+            if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
 	    return nil
         end
     end
     if checkcaller() then
+        if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
         return OldGetFocusedTextBox(arg1)
     end
+    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
 end)
 end
-end)
 
 local OldNameCall = nil
 
@@ -964,6 +994,7 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
         --local SanitizedNamecallMethod = SanitizeNamecallMethod(NameCallMethod)
 
         if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
+    	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
             return nil
 	end
 			
@@ -972,6 +1003,7 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 	end]]--
 
         if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "Kick" then
+    	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
             return
 	end
 			
