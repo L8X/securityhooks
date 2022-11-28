@@ -461,6 +461,17 @@ if hookfunction ~= nil then
     		end
 		end)
     end
+    if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.kick) end) then
+    	local kick = hookfunction(LocalPlayer.kick, function(arg1, arg2, arg3) 
+    		if checkcaller() then
+    			return
+    		end 
+    			elseif not checkcaller() then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
+    			return
+    		end
+		end)
+    end
     if GuiService ~= nil and pcall(function() tostring(GuiService.ToggleFullscreen) end) then
     	local ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function(arg1, arg2) 
     		if checkcaller() then
@@ -1003,6 +1014,11 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 	end]]--
 
         if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "Kick" then
+    	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
+            return
+	end
+
+        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "kick" then
     	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
             return
 	end
