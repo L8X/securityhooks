@@ -452,10 +452,10 @@ if hookfunction ~= nil then
     end
     if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.Kick) end) then
     	local Kick = hookfunction(LocalPlayer.Kick, function(arg1, arg2, arg3) 
-    		if checkcaller() then
+    		if checkcaller() and arg1 == LocalPlayer then
     			return
     		end 
-    			elseif not checkcaller() then
+    			elseif not checkcaller() and arg1 == LocalPlayer then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return
     		end
@@ -463,10 +463,10 @@ if hookfunction ~= nil then
     end
     if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.kick) end) then
     	local kick = hookfunction(LocalPlayer.kick, function(arg1, arg2, arg3) 
-    		if checkcaller() then
+    		if checkcaller() and arg1 == LocalPlayer then
     			return
     		end 
-    			elseif not checkcaller() then
+    			elseif not checkcaller() and arg1 == LocalPlayer then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV or {}) end
     			return
     		end
