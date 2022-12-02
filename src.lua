@@ -40,6 +40,7 @@ end
 local string = string
 local string_gsub = string.gsub 
 
+-- SanitizeNamecallMethod is currently unused --
 local function SanitizeNamecallMethod(str)
     local tostringed = tostring(str)
     return string_gsub(tostringed, "\0", "")
@@ -78,8 +79,8 @@ if getrenv then
         for i, v in next, getrenv() do
             _ENV[i] = v
         end
-	pcall(function() setreadonly(_Globals, true) end)
-	pcall(function() setreadonly(_ENV, true) end)
+        pcall(function() setreadonly(_Globals, true) end)
+        pcall(function() setreadonly(_ENV, true) end)
 end
 
 local function GetService(s)
@@ -155,58 +156,51 @@ local FriendService = FindService("FriendService")
 local CoreScriptSyncService = FindService("CoreScriptSyncService")
 local LocalPlayer = Players.LocalPlayer
 
-
+-- Begin AllStepped --
 local BindableEvent = Instance.new("BindableEvent")
 local AllStepped = BindableEvent.Event
 
 RunService.Heartbeat:Connect(function()
     BindableEvent:Fire()
 end)
-
 RunService.Stepped:Connect(function()
     BindableEvent:Fire()
 end)
-
-RunService.Stepped:Connect(function()
-    BindableEvent:Fire()
-end)
-
 RunService.RenderStepped:Connect(function()
     BindableEvent:Fire()
 end)
-
-RunService.PreSimulation:Connect(function()
-    BindableEvent:Fire()
-end)
-
-RunService.PostSimulation:Connect(function()
-    BindableEvent:Fire()
-end)
-
-RunService.PreAnimation:Connect(function()
-    BindableEvent:Fire()
-end)
-
-RunService.PreRender:Connect(function()
-    BindableEvent:Fire()
-end)
-
 RunService:BindToRenderStep(tostring(math.random(1e9, 2e9)), 0, function()
     BindableEvent:Fire()
 end)
-
 task.spawn(function()
     while wait(0) do
         BindableEvent:Fire()
     end
 end)
-
 task.spawn(function()
     while task.wait(0) do
         BindableEvent:Fire()
     end
 end)
 
+--pcall wrap incase Roblox changes smth with these
+pcall(function()
+    RunService.PreSimulation:Connect(function()
+        BindableEvent:Fire()
+    end)
+    RunService.PostSimulation:Connect(function()
+        BindableEvent:Fire()
+    end)
+    RunService.PreAnimation:Connect(function()
+        BindableEvent:Fire()
+    end)
+    RunService.PreRender:Connect(function()
+        BindableEvent:Fire()
+    end)
+end)
+-- End AllStepped --
+
+-- Begin GFTB Bypassing --
 local TextBoxIsInHiddenInstance = false
 
 AllStepped:Connect(function()
@@ -218,7 +212,6 @@ AllStepped:Connect(function()
         end
     end
 end)
-
 UserInputService.TextBoxFocused:Connect(function()
     if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
         TextBoxIsInHiddenInstance = true
@@ -228,7 +221,6 @@ UserInputService.TextBoxFocused:Connect(function()
         end
     end
 end)
-
 UserInputService.TextBoxFocusReleased:Connect(function()
     if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
         TextBoxIsInHiddenInstance = true
@@ -238,31 +230,29 @@ UserInputService.TextBoxFocusReleased:Connect(function()
         end
     end
 end)
+-- End GFTB Bypassing --
 
+-- Begin GetHui and GetHiddenGui Removal Protection --
 task.spawn(function()
-if gethui and gethui() and hookfunction then
-hookfunction(gethui().destroy, function() end)
-hookfunction(gethui().Destroy, function() end)
-hookfunction(gethui().remove, function() end)
-hookfunction(gethui().Remove, function() end)	
-end
+    if gethui and gethui() and hookfunction then
+        hookfunction(gethui().destroy, function() end)
+        hookfunction(gethui().Destroy, function() end)
+        hookfunction(gethui().remove, function() end)
+        hookfunction(gethui().Remove, function() end)	
+    end
 end)
 
 task.spawn(function()
-if gethiddengui and gethiddengui() and hookfunction then
-hookfunction(gethiddengui().destroy, function() end)
-hookfunction(gethiddengui().Destroy, function() end)
-hookfunction(gethiddengui().remove, function() end)
-hookfunction(gethiddengui().Remove, function() end)	
-end
+    if gethiddengui and gethiddengui() and hookfunction then
+        hookfunction(gethiddengui().destroy, function() end)
+        hookfunction(gethiddengui().Destroy, function() end)
+        hookfunction(gethiddengui().remove, function() end)
+        hookfunction(gethiddengui().Remove, function() end)	
+    end
 end)
-
+-- End GetHui and GetHiddenGui Removal Protection --
 
 task.spawn(coroutine.create(function()
--- potential 268 fix
---[[if not game:IsLoaded() then
-    game.Loaded:Wait()
-end]]--
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
@@ -631,6 +621,7 @@ if hookfunction ~= nil then
 end
 end))
 
+-- Begin MORE GFTB Bypassing --
 local OldGetFocusedTextBox
 
 if gethui ~= nil and hookfunction ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
@@ -647,6 +638,7 @@ OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function
     if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
 end)
 end
+-- End MORE GFTB Bypassing --
 
 local OldNameCall = nil
 
@@ -915,30 +907,26 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 
         if not checkcaller() then
         local NameCallMethod = getnamecallmethod()
-        --local SanitizedNamecallMethod = SanitizeNamecallMethod(NameCallMethod)
+        --local SanitizedNamecallMethod = SanitizeNamecallMethod(NameCallMethod) -- unused
 
-        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
+        if UserInputService ~= nil and Self == UserInputService and NameCallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then -- GFTB Bypassing
     	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
             return nil
 	end
 			
-	--[[if UserInputService ~= nil and Self == UserInputService and SanitizedNamecallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
+	--[[if UserInputService ~= nil and Self == UserInputService and SanitizedNamecallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then -- (Unused) GFTB Bypassing
             return nil
 	end]]--
 
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "Kick" then
+        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "Kick" then -- hehe
     	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
             return
 	end
 
-        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "kick" then
+        if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "kick" then -- hehe
     	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
             return
 	end
-			
-	--[[if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and SanitizedNamecallMethod == "GetFocusedTextBox" and TextBoxIsInHiddenInstance then
-            return
-	end]]--
 
         end
 
