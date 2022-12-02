@@ -146,7 +146,7 @@ local VirtualInputManager = FindService("VirtualInputManager")
 local VirtualUser = FindService("VirtualUser")
 local LogService = FindService("LogService")
 local GuiService = FindService("GuiService")
-local ContentProvider = GetService("ContentProvider")
+local ContentProvider = FindService("ContentProvider")
 local MeshContentProvider = FindService("MeshContentProvider")
 local LocalizationService = FindService("LocalizationService")
 local RunService = FindService("RunService")
@@ -235,19 +235,19 @@ end)
 -- Begin GetHui and GetHiddenGui Removal Protection --
 task.spawn(function()
     if gethui and gethui() and hookfunction then
-        hookfunction(gethui().destroy, function() end)
-        hookfunction(gethui().Destroy, function() end)
-        hookfunction(gethui().remove, function() end)
-        hookfunction(gethui().Remove, function() end)	
+        hookfunction(gethui().destroy, newcclosure(function() end))
+        hookfunction(gethui().Destroy, newcclosure(function() end))
+        hookfunction(gethui().remove, newcclosure(function() end))
+        hookfunction(gethui().Remove, newcclosure(function() end))	
     end
 end)
 
 task.spawn(function()
     if gethiddengui and gethiddengui() and hookfunction then
-        hookfunction(gethiddengui().destroy, function() end)
-        hookfunction(gethiddengui().Destroy, function() end)
-        hookfunction(gethiddengui().remove, function() end)
-        hookfunction(gethiddengui().Remove, function() end)	
+        hookfunction(gethiddengui().destroy, newcclosure(function() end))
+        hookfunction(gethiddengui().Destroy, newcclosure(function() end))
+        hookfunction(gethiddengui().remove, newcclosure(function() end))
+        hookfunction(gethiddengui().Remove, newcclosure(function() end))	
     end
 end)
 -- End GetHui and GetHiddenGui Removal Protection --
@@ -256,367 +256,371 @@ task.spawn(coroutine.create(function()
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
     if game ~= nil and pcall(function() tostring(game.Shutdown) end) then
-    	local oldShutdown = hookfunction(game.Shutdown, function(arg1, arg2) 
+    	local oldShutdown = hookfunction(game.Shutdown, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
-    			elseif not checkcaller() then
+    			elseif not checkcaller() and Self == game then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return oldShutdown(arg1, arg2)
+    			return oldShutdown(Self, ...)
     		end
-		end)
+		end))
     end
     if game ~= nil and pcall(function() tostring(game.ReportInGoogleAnalytics) end) then
-    	local ReportInGoogleAnalytics = hookfunction(game.ReportInGoogleAnalytics, function(arg1, arg2, arg3, arg4, arg5) 
+    	local ReportInGoogleAnalytics = hookfunction(game.ReportInGoogleAnalytics, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
-    			elseif not checkcaller() then
+    			elseif not checkcaller() and Self == game then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return ReportInGoogleAnalytics(arg1, arg2, arg3, arg4, arg5)
+    			return ReportInGoogleAnalytics(Self, ...)
     		end
-		end)
+		end))
     end
     if game ~= nil and pcall(function() tostring(game.OpenScreenshotsFolder) end) then
-    	local OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, function(arg1, arg2) 
+    	local OpenScreenshotsFolder = hookfunction(game.OpenScreenshotsFolder, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
-    			elseif not checkcaller() then
+    			elseif not checkcaller() and Self == game then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return OpenScreenshotsFolder(arg1, arg2)
+    			return OpenScreenshotsFolder(...)
     		end
-		end)
+		end))
     end
     if game ~= nil and pcall(function() tostring(game.OpenVideosFolder) end) then
-    	local OpenVideosFolder = hookfunction(game.OpenVideosFolder, function(arg1, arg2) 
+    	local OpenVideosFolder = hookfunction(game.OpenVideosFolder, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return OpenVideosFolder(arg1, arg2)
+    			return OpenVideosFolder(...)
     		end
-		end)
+		end))
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.SetUserGuiRendering) end) then
-    	local SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, function(arg1, arg2) 
+    	local SetUserGuiRendering = hookfunction(CoreGui.SetUserGuiRendering, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return SetUserGuiRendering(arg1, arg2)
+    			return SetUserGuiRendering(...)
     		end
-		end)
+		end))
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.TakeScreenshot) end) then
-    	local TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, function(arg1, arg2) 
+    	local TakeScreenshot = hookfunction(CoreGui.TakeScreenshot, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return TakeScreenshot(arg1, arg2)
+    			return TakeScreenshot(...)
     		end
-		end)
+		end))
     end
     if CoreGui ~= nil and pcall(function() tostring(CoreGui.ToggleRecording) end) then
-    	local ToggleRecording = hookfunction(CoreGui.ToggleRecording, function(arg1, arg2) 
+    	local ToggleRecording = hookfunction(CoreGui.ToggleRecording, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return ToggleRecording(arg1, arg2)
+    			return ToggleRecording...)
     		end
-		end)
+		end))
     end
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuse) end) then
-    	local ReportAbuse = hookfunction(Players.ReportAbuse, function(arg1, arg2, arg3, arg4) 
+    	local ReportAbuse = hookfunction(Players.ReportAbuse, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return ReportAbuse(arg1, arg2, arg3, arg4)
+    			return ReportAbuse(...)
     		end
-		end)
+		end))
     end
     if Players ~= nil and pcall(function() tostring(Players.ReportAbuseV3) end) then
-    	local ReportAbuseV3 = hookfunction(Players.ReportAbuseV3, function(arg1, arg2, arg3) 
+    	local ReportAbuseV3 = hookfunction(Players.ReportAbuseV3, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return ReportAbuseV3(arg1, arg2, arg3)
+    			return ReportAbuseV3(...)
     		end
-		end)
+		end))
     end
     if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.Kick) end) then
-    	local Kick = hookfunction(LocalPlayer.Kick, function(arg1, arg2, arg3) 
+    	local Kick = hookfunction(LocalPlayer.Kick, newcclosure(function(Self, ...) 
     		if checkcaller() and arg1 == LocalPlayer then
     			return
     		end 
-    			elseif not checkcaller() and arg1 == LocalPlayer then
+    			elseif not checkcaller() and Self == LocalPlayer and type(...) == "string" or Self == LocalPlayer and (...) == nil then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
     			return
     		end
-		end)
+    		        if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+    			return Kick(Self, ...)
+		end))
     end
     if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.kick) end) then
-    	local kick = hookfunction(LocalPlayer.kick, function(arg1, arg2, arg3) 
+    	local kick = hookfunction(LocalPlayer.kick, newcclosure(function(Self, ...) 
     		if checkcaller() and arg1 == LocalPlayer then
     			return
     		end 
-    			elseif not checkcaller() and arg1 == LocalPlayer then
+    			elseif not checkcaller() and Self == LocalPlayer and type(...) == "string" or Self == LocalPlayer and (...) == nil then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
     			return
     		end
-		end)
+    		        if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+    			return kick(Self, ...)
+		end))
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.ToggleFullscreen) end) then
-    	local ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, function(arg1, arg2) 
+    	local ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return ToggleFullscreen(arg1, arg2)
+    			return ToggleFullscreen(...)
     		end
-		end)
+		end))
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenBrowserWindow) end) then
-    	local OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, function(arg1, arg2) 
+    	local OpenBrowserWindow = hookfunction(GuiService.OpenBrowserWindow, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return OpenBrowserWindow(arg1, arg2)
+    			return OpenBrowserWindow(...)
     		end
-		end)
+		end))
     end
     if GuiService ~= nil and pcall(function() tostring(GuiService.OpenNativeOverlay) end) then
-    	local OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, function(arg1, arg2) 
+    	local OpenNativeOverlay = hookfunction(GuiService.OpenNativeOverlay, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return OpenNativeOverlay(arg1, arg2)
+    			return OpenNativeOverlay(...)
     		end
-		end)
+		end))
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.GetUserAgent) end) then
-    	local GetUserAgent = hookfunction(HttpService.GetUserAgent, function(arg1, arg2) 
+    	local GetUserAgent = hookfunction(HttpService.GetUserAgent, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetUserAgent(arg1, arg2)
+    			return GetUserAgent(...)
     		end
-		end)
+		end))
     end
     if HttpService ~= nil and pcall(function() tostring(HttpService.RequestInternal) end) then
-    	local RequestInternal = hookfunction(HttpService.RequestInternal, function(arg1, arg2) 
+    	local RequestInternal = hookfunction(HttpService.RequestInternal, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return RequestInternal(arg1, arg2)
+    			return RequestInternal(...)
     		end
-		end)
+		end))
     end
     if ScriptContext ~= nil and pcall(function() tostring(ScriptContext.AddCoreScriptLocal) end) then
-    	local AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, function(arg1, arg2) 
+    	local AddCoreScriptLocal = hookfunction(ScriptContext.AddCoreScriptLocal, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return AddCoreScriptLocal(arg1, arg2)
+    			return AddCoreScriptLocal(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
-    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1, arg2) 
+    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetOutputDevice(arg1, arg2)
+    			return GetOutputDevice(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevices) end) then
-    	local GetOutputDevices = hookfunction(SoundService.GetOutputDevices, function(arg1, arg2) 
+    	local GetOutputDevices = hookfunction(SoundService.GetOutputDevices, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetOutputDevices(arg1, arg2)
+    			return GetOutputDevices(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetOutputDevice) end) then
-    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, function(arg1, arg2) 
+    	local GetOutputDevice = hookfunction(SoundService.GetOutputDevice, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetOutputDevice(arg1, arg2)
+    			return GetOutputDevice(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevice) end) then
-    	local GetInputDevice = hookfunction(SoundService.GetInputDevice, function(arg1, arg2) 
+    	local GetInputDevice = hookfunction(SoundService.GetInputDevice, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetInputDevice(arg1, arg2)
+    			return GetInputDevice(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetInputDevices) end) then
-    	local GetInputDevices = hookfunction(SoundService.GetInputDevices, function(arg1, arg2) 
+    	local GetInputDevices = hookfunction(SoundService.GetInputDevices, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetInputDevices(arg1, arg2)
+    			return GetInputDevices(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetInputDevice) end) then
-    	local SetInputDevice = hookfunction(SoundService.SetInputDevice, function(arg1, arg2) 
+    	local SetInputDevice = hookfunction(SoundService.SetInputDevice, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return SetInputDevice(arg1, arg2)
+    			return SetInputDevice(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.GetRecordingDevices) end) then
-    	local GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, function(arg1, arg2) 
+    	local GetRecordingDevices = hookfunction(SoundService.GetRecordingDevices, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetRecordingDevices(arg1, arg2)
+    			return GetRecordingDevices(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.SetRecordingDevice) end) then
-    	local SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, function(arg1, arg2) 
+    	local SetRecordingDevice = hookfunction(SoundService.SetRecordingDevice, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return SetRecordingDevice(arg1, arg2)
+    			return SetRecordingDevice(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
-    	local BeginRecording = hookfunction(SoundService.BeginRecording, function(arg1, arg2) 
+    	local BeginRecording = hookfunction(SoundService.BeginRecording, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return BeginRecording(arg1, arg2)
+    			return BeginRecording(...)
     		end
-		end)
+		end))
     end
     if SoundService ~= nil and pcall(function() tostring(SoundService.BeginRecording) end) then
-    	local BeginRecording = hookfunction(SoundService.EndRecording, function(arg1, arg2) 
+    	local BeginRecording = hookfunction(SoundService.EndRecording, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return BeginRecording(arg1, arg2)
+    			return BeginRecording(...)
     		end
-		end)
+		end))
     end
     if LogService ~= nil and pcall(function() tostring(LogService.GetHttpResultHistory) end) then
-    	local GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, function(arg1, arg2) 
+    	local GetHttpResultHistory = hookfunction(LogService.GetHttpResultHistory, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetHttpResultHistory(arg1, arg2)
+    			return GetHttpResultHistory(...)
     		end
-		end)
+		end))
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetAudioProcessingSettings) end) then
-    	local GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, function(arg1, arg2) 
+    	local GetAudioProcessingSettings = hookfunction(VoiceChatInternal.GetAudioProcessingSettings, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetAudioProcessingSettings(arg1, arg2)
+    			return GetAudioProcessingSettings(...)
     		end
-		end)
+		end))
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetMicDevices) end) then
-    	local GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, function(arg1, arg2) 
+    	local GetMicDevices = hookfunction(VoiceChatInternal.GetMicDevices, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetMicDevices(arg1, arg2)
+    			return GetMicDevices(...)
     		end
-		end)
+		end))
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.GetSpeakerDevices) end) then
-    	local GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, function(arg1, arg2) 
+    	local GetSpeakerDevices = hookfunction(VoiceChatInternal.GetSpeakerDevices, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return GetSpeakerDevices(arg1, arg2)
+    			return GetSpeakerDevices(...)
     		end
-		end)
+		end))
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetSpeakerDevice) end) then
-    	local SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, function(arg1, arg2) 
+    	local SetSpeakerDevice = hookfunction(VoiceChatInternal.SetSpeakerDevice, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return SetSpeakerDevice(arg1, arg2)
+    			return SetSpeakerDevice(...)
     		end
-		end)
+		end))
     end
     if VoiceChatInternal ~= nil and pcall(function() tostring(VoiceChatInternal.SetMicDevice) end) then
-    	local SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, function(arg1, arg2) 
+    	local SetMicDevice = hookfunction(VoiceChatInternal.SetMicDevice, newcclosure(function(...) 
     		if checkcaller() then
     			return
     		end 
     			elseif not checkcaller() then 
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-    			return SetMicDevice(arg1, arg2)
+    			return SetMicDevice(...)
     		end
-		end)
+		end))
     end
 end
 end))
@@ -625,24 +629,30 @@ end))
 local OldGetFocusedTextBox
 
 if gethui ~= nil and hookfunction ~= nil or gethiddengui ~= nil and hookfunction ~= nil then
-OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, function(arg1)		
+OldGetFocusedTextBox = hookfunction(UserInputService.GetFocusedTextBox, newcclosure(function(...)		
     if not checkcaller() then
         if TextBoxIsInHiddenInstance then 
             if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
 	    return nil
         end
     end
+    if not checkcaller() then
+        if not TextBoxIsInHiddenInstance then 
+            if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+	    return OldGetFocusedTextBox(...)
+        end
+    end
     if checkcaller() then
-        return OldGetFocusedTextBox(arg1)
+        return OldGetFocusedTextBox(...)
     end
     if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-end)
+end))
 end
 -- End MORE GFTB Bypassing --
 
 local OldNameCall = nil
 
-OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
+OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
 		
         if checkcaller() then
         local NameCallMethod = getnamecallmethod()
@@ -932,4 +942,4 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
 
 	if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
 	return OldNameCall(Self, ...)
-end)
+end))
