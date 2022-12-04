@@ -9,6 +9,7 @@ local getnamecallmethod = getnamecallmethod
 local hookmetamethod = hookmetamethod
 local hookfunction = hookfunction
 local checkcaller = checkcaller
+local newcclosure = newcclosure
 local getfenv = getfenv
 local setfenv = setfenv
 local _G = _G
@@ -34,6 +35,12 @@ if not hookmetamethod then
     return
 end
 if not checkcaller then
+    return
+end
+if not hookfunction then
+    return
+end
+if not newcclosure then
     return
 end
 
