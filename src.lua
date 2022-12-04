@@ -252,6 +252,23 @@ task.spawn(function()
 end)
 -- End GetHui and GetHiddenGui Removal Protection --
 
+-- Begin Anti Tracker --
+task.spawn(function()
+    if hookfunction ~= nil then
+        local old_os_clock
+        old_os_clock = hookfunction(os.clock, newcclosure(function(...)
+            if not checkcaller() then
+    		if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+                return math.random(1, 99999)
+            end
+    	    if checkcaller() then
+                return old_os_clock(...)
+    	    end
+        end)
+    end
+end)
+-- End Anti Tracker --
+
 task.spawn(coroutine.create(function()
 -- only hookfunctioning super unsafe and context level restricted stuff for now, will add the rest later --
 if hookfunction ~= nil then
