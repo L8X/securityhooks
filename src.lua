@@ -10,6 +10,8 @@ local hookmetamethod = hookmetamethod
 local hookfunction = hookfunction
 local checkcaller = checkcaller
 local newcclosure = newcclosure
+local tostring = tostring
+local tonumber = tonumber
 local getfenv = getfenv
 local setfenv = setfenv
 local _G = _G
@@ -264,10 +266,20 @@ local math_random = math.random
 local math_randomseed = math.randomseed
 
 -- Begin Anti Tracker --
-task_spawn(function()
-    pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/L8X/aa/main/src.lua", true))()
-    end)
+task.spawn(function()
+    if hookfunction ~= nil then
+        math_randomseed(tick())
+        local old_os_clock
+        old_os_clock = hookfunction(os.clock, newcclosure(function(...)
+            if not checkcaller() then
+    		if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+                return tonumber(tostring(math_random(12500, 325000)).."."..tostring(math_random(1,999)))
+            end
+    	    if checkcaller() then
+                return old_os_clock(...)
+    	    end
+        end))
+    end
 end)
 -- End Anti Tracker --
 
