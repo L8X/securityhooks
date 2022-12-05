@@ -276,7 +276,7 @@ task.spawn(function()
     	    if checkcaller() then
                 return old_os_clock(...)
     	    end
-        end)
+        end))
     end
 end)
 -- End Anti Tracker --
