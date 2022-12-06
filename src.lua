@@ -978,6 +978,8 @@ OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
             return nil
 	end]]--
 
+	-- waiting for kaid to fix this #fuckadonis --
+	--[[
         if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "Kick" then -- hehe
     	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
             return
@@ -986,7 +988,7 @@ OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
         if Players ~= nil and LocalPlayer ~= nil and Self == LocalPlayer and NameCallMethod == "kick" then -- hehe
     	    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
             return
-	end
+	end]]--
 
         end
 
