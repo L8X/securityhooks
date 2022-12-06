@@ -385,6 +385,8 @@ if hookfunction ~= nil then
     		end
 		end))
     end
+    -- waiting for kaid to fix this #fuckadonis --
+    -[[
     if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.Kick) end) then
     	local Kick = hookfunction(LocalPlayer.Kick, newcclosure(function(Self, ...) 
     		if checkcaller() and self == LocalPlayer then
@@ -427,6 +429,7 @@ if hookfunction ~= nil then
     			return kick(Self, ...)
 		end))
     end
+    ]]--
     if GuiService ~= nil and pcall(function() tostring(GuiService.ToggleFullscreen) end) then
     	local ToggleFullscreen = hookfunction(GuiService.ToggleFullscreen, newcclosure(function(...) 
     		if checkcaller() then
