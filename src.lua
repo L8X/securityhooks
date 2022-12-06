@@ -387,12 +387,20 @@ if hookfunction ~= nil then
     end
     if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.Kick) end) then
     	local Kick = hookfunction(LocalPlayer.Kick, newcclosure(function(Self, ...) 
-    		if checkcaller() and arg1 == LocalPlayer then
+    		if checkcaller() and self == LocalPlayer then
     			return
     		end 
-    			if not checkcaller() and Self == LocalPlayer and type(...) == "string" or Self == LocalPlayer and (...) == nil then
+    			if not checkcaller() and Self == LocalPlayer and type(...) == "string" then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
     			return
+    		end
+			if not checkcaller() and Self == LocalPlayer and (...) == nil then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+    			return
+    		end
+			if not checkcaller() and Self ~= LocalPlayer then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+    			return Kick(Self, ...)
     		end
     		        if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
     			return Kick(Self, ...)
@@ -400,12 +408,20 @@ if hookfunction ~= nil then
     end
     if LocalPlayer ~= nil and pcall(function() tostring(LocalPlayer.kick) end) then
     	local kick = hookfunction(LocalPlayer.kick, newcclosure(function(Self, ...) 
-    		if checkcaller() and arg1 == LocalPlayer then
+    		if checkcaller() and Self == LocalPlayer then
     			return
     		end 
-    			if not checkcaller() and Self == LocalPlayer and type(...) == "string" or Self == LocalPlayer and (...) == nil then
+    			if not checkcaller() and Self == LocalPlayer and type(...) == "string" then
     			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
     			return
+    		end
+			if not checkcaller() and Self == LocalPlayer and (...) == nil then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+    			return
+    		end
+			if not checkcaller() and Self ~= LocalPlayer then
+    			if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
+    			return Kick(Self, ...)
     		end
     		    if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
     			return kick(Self, ...)
