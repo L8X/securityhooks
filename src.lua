@@ -23,7 +23,7 @@ local cloneref = cloneref
 local genv = getfenv(0) or _G or shared
 
 local getgenv = getgenv or function()
-	return genv
+    return genv
 end
 
 if (getgenv().EXPRO_SECURITYHOOKS_LOADED) then return; end
@@ -46,7 +46,6 @@ if not newcclosure then
     return
 end
 
-local string = string
 local string_gsub = string.gsub 
 
 -- SanitizeNamecallMethod is currently unused --
@@ -55,7 +54,6 @@ local function SanitizeNamecallMethod(str)
     return string_gsub(tostringed, "\0", "")
 end
 
-local debug = debug
 local debug_getfenv = debug.getfenv
 local debug_getmetatable = debug.getmetatable
 
@@ -90,6 +88,10 @@ if getrenv then
         end
         pcall(function() setreadonly(_Globals, true) end)
         pcall(function() setreadonly(_ENV, true) end)
+end
+
+if not getrenv then
+    return
 end
 
 local function GetService(s)
