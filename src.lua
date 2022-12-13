@@ -20,7 +20,7 @@ local gethui = gethui or gethiddenui or hiddenui
 local gethiddengui = gethiddengui
 local cloneref = cloneref
 
-local genv = getfenv(0) or _G or shared
+local genv = shared or _G
 
 local getgenv = getgenv or function()
     return genv
@@ -215,28 +215,28 @@ end)
 local TextBoxIsInHiddenInstance = false
 
 AllStepped:Connect(function()
-    if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+    if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and gethui() ~= CoreGui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
         TextBoxIsInHiddenInstance = true
     else
-        if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+        if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and gethui() ~= CoreGui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
             TextBoxIsInHiddenInstance = false
         end
     end
 end)
 UserInputService.TextBoxFocused:Connect(function()
-    if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+    if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and gethui() ~= CoreGui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
         TextBoxIsInHiddenInstance = true
     else
-        if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+        if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and gethui() ~= CoreGui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
             TextBoxIsInHiddenInstance = false
         end
     end
 end)
 UserInputService.TextBoxFocusReleased:Connect(function()
-    if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+    if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and gethui() ~= CoreGui and UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
         TextBoxIsInHiddenInstance = true
     else
-        if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
+        if UserInputService:GetFocusedTextBox() ~= nil and gethiddengui and not UserInputService:GetFocusedTextBox():IsDescendantOf(gethiddengui()) or UserInputService:GetFocusedTextBox() ~= nil and gethui and gethui() ~= CoreGui and not UserInputService.GetFocusedTextBox(UserInputService):IsDescendantOf(gethui()) then
             TextBoxIsInHiddenInstance = false
         end
     end
@@ -245,21 +245,25 @@ end)
 
 -- Begin GetHui and GetHiddenGui Removal Protection --
 task.spawn(function()
-    if gethui and gethui() and hookfunction then
-        hookfunction(gethui().destroy, newcclosure(function() end))
-        hookfunction(gethui().Destroy, newcclosure(function() end))
-        hookfunction(gethui().remove, newcclosure(function() end))
-        hookfunction(gethui().Remove, newcclosure(function() end))	
-    end
+    pcall(function()
+        if gethui and gethui() ~= CoreGui and hookfunction then
+            hookfunction(gethui().destroy, newcclosure(function() end))
+            hookfunction(gethui().Destroy, newcclosure(function() end))
+            hookfunction(gethui().remove, newcclosure(function() end))
+            hookfunction(gethui().Remove, newcclosure(function() end))	
+      . end
+    end)
 end)
 
 task.spawn(function()
-    if gethiddengui and gethiddengui() and hookfunction then
-        hookfunction(gethiddengui().destroy, newcclosure(function() end))
-        hookfunction(gethiddengui().Destroy, newcclosure(function() end))
-        hookfunction(gethiddengui().remove, newcclosure(function() end))
-        hookfunction(gethiddengui().Remove, newcclosure(function() end))	
-    end
+    pcall(function()
+        if gethiddengui and hookfunction then
+            hookfunction(gethiddengui().destroy, newcclosure(function() end))
+            hookfunction(gethiddengui().Destroy, newcclosure(function() end))
+            hookfunction(gethiddengui().remove, newcclosure(function() end))
+            hookfunction(gethiddengui().Remove, newcclosure(function() end))	
+        end
+    end)
 end)
 -- End GetHui and GetHiddenGui Removal Protection --
 
@@ -272,7 +276,7 @@ task.spawn(function()
     if hookfunction ~= nil then
         math_randomseed(tick())
         local old_os_clock
-        old_os_clock = hookfunction(os.clock, newcclosure(function(...)
+        old_os_clock = hookfunction(getrenv().os.clock, newcclosure(function(...)
             if not checkcaller() then
     		if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
                 return tonumber(tostring(math_random(12500, 325000)).."."..tostring(math_random(1,999)))
@@ -962,6 +966,38 @@ OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
         end
 
         if CoreScriptSyncService ~= nil and Self == CoreScriptSyncService and NameCallMethod and not NameCallMethod == "Connect" and not NameCallMethod == "connect" then
+            return
+        end
+
+        if gethui ~= nil and gethui() ~= CoreGui and Self == gethui() and NameCallMethod == "Destroy" then
+            return
+        end
+
+        if gethui ~= nil and gethui() ~= CoreGui and Self == gethui() and NameCallMethod == "destroy" then
+            return
+        end
+
+        if gethui ~= nil and gethui() ~= CoreGui and Self == gethui() and NameCallMethod == "Remove" then
+            return
+        end
+
+        if gethui ~= nil and gethui() ~= CoreGui and Self == gethui() and NameCallMethod == "remove" then
+            return
+        end
+
+        if gethiddengui ~= nil and Self == gethiddengui() and NameCallMethod == "Destroy" then
+            return
+        end
+
+        if gethiddengui ~= nil and Self == gethiddengui() and NameCallMethod == "destroy" then
+            return
+        end
+
+        if gethiddengui ~= nil and Self == gethiddengui() and NameCallMethod == "Remove" then
+            return
+        end
+
+        if gethiddengui ~= nil and Self == gethiddengui() and NameCallMethod == "remove" then
             return
         end
 
