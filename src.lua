@@ -67,7 +67,6 @@ if not getrenv and debug and debug_getmetatable and debug_getfenv then
     end
 end
 
-
 local _ENV
 local _Globals
 
@@ -275,11 +274,12 @@ local math_randomseed = math.randomseed
 task.spawn(function()
     if hookfunction ~= nil then
         math_randomseed(tick())
+        local offset = math_random(300, 3600)
         local old_os_clock
         old_os_clock = hookfunction(getrenv().os.clock, newcclosure(function(...)
             if not checkcaller() then
     		if identifyexecutor and not identifyexecutor():find("Synapse") then setfenv(1, _ENV) end
-                return tonumber(tostring(math_random(12500, 325000)).."."..tostring(math_random(1,999)))
+                return old_os_clock() + math_random(300, 3600)
             end
     	    if checkcaller() then
                 return old_os_clock(...)
